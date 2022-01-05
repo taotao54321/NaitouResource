@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}{{ config.title }}{% endblock %}
+
+{% block content %}
+{%
+set PAGE_NAMES = [
+    "data-structure",
+    "ram-map",
+    "prg-map",
+    "price-table",
+    "effect",
+    "advantage-disadvantage",
+    "engine",
+    "book",
+    "kifu",
+    "bug",
+]
+%}
+
+<header>{{ config.title }}</header>
+
+{{ section.content | safe }}
+
+<p>特に断らない場合、「距離」は<a href="https://ja.wikipedia.org/wiki/%E3%83%81%E3%82%A7%E3%83%93%E3%82%B7%E3%82%A7%E3%83%95%E8%B7%9D%E9%9B%A2">チェス盤距離</a>の意。</p>
+
+<p>COM側は打ち歩詰めを指さないが、プレイヤー側は打ち歩詰めが許される。</p>
+
+<h2>Contents</h2>
+
+<ul>
+{% for name in PAGE_NAMES %}
+{% set page = get_page(path=name~"/index.md") %}
+  <li><a href="{{ page.permalink | safe }}">{{ page.title }}</a></li>
+{% endfor %}
+</ul>
+
+<p>調査にあたり、<a href="https://github.com/taotao54321/naitou-clone-2">思考エンジンのシミュレーター</a>を作成した。短手数棋譜や思考ログはこれを用いて生成している。</p>
+
+<p>棋譜の埋め込みには<a href="https://play.mogproject.com/">Shogi Playground</a>を利用している。</p>
+
+<p>この文書は<a href="https://github.com/taotao54321/NaitouResource">gitリポジトリ</a>で管理されている。誤りの指摘などは Issue へどうぞ。</p>
+{% endblock %}
