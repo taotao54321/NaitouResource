@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>本将棋 内藤九段将棋秘伝 (FC) 攻略&#x2F;解析 - バグ</title>
+
+  <link rel="stylesheet" href="https://taotao54321.github.io/NaitouResource/main.css">
+</head>
+<body>
+
+
+<header>
+  <a href="https://taotao54321.github.io/NaitouResource/">本将棋 内藤九段将棋秘伝 (FC) 攻略&#x2F;解析</a>
+</header>
+
+<p>
+Published on: 2022-01-21
+
+<br>Updated on: 2022-02-10
+
+</p>
+
+<h1>バグ</h1>
+
+<h2 id="matta">待った関連の不具合</h2>
+<h3 id="dai-tutaniyoricomnozhi-sishou-gabian-waru">待ったによりCOMの指し手が変わる</h3>
+<p>序盤で待ったを行うと、同じ手順で進めてもCOMの指し手が変わることがある。</p>
+<p>これは、待ったを行った際に戦型や進行度関連データを巻き戻していないため。<br />
+例えば以下のようなことが可能:</p>
+<ul>
+<li>平手プレイヤー先手で初手から76歩, 34歩, (22角成同銀待った), 26歩とすると、戦型が角換わりのままになっているため、COMは44歩でなく33角と指す。</li>
+<li>平手プレイヤー先手で初手から76歩, 34歩, (66角同角待った)*5 とすると、以後COMは定跡を使わず自力で指すようになる(サブ進行度を 5 回増やすことで進行度が 1 になって定跡を抜けたため)。</li>
+</ul>
+<h3 id="matta-illegal">COMが直前の指し手を繰り返す</h3>
+<p>最序盤で待ったを繰り返して定跡を抜けた後、プレイヤーが特定の手を指すと、COMは直前の指し手を繰り返す。違法手でも構わずに着手するため、場合によっては駒が消えるなどの不具合が起こる。<br />
+なお、駒が消える手を待ったしても消えた駒は復活しない。</p>
+<p>具体的には、以下の条件を全て満たすときCOMは直前の指し手を繰り返す:</p>
+<ul>
+<li>進行度が 1 (サブ進行度を進める手(COMが駒を取る手など)を指させて待ったすることを 5 回繰り返せば実現可能)</li>
+<li>6 手目以内</li>
+<li>プレイヤーの指し手の移動先が２二、４五、５六のいずれか</li>
+</ul>
+<p>これは、6 手目以内のプレイヤーの指し手の移動先に応じて定跡処理を強制的に行うコード内で進行度が 1 のケースを適切に処理できていないのが原因。<br />
+通常は 6 手目以内で進行度が 1 になることはないので問題にはならないが、待ったが絡むと進行度が 1 になることがありうる。</p>
+<p>このバグは色々な応用が考えられる。いくつかの例を示す。</p>
+<h4 id="ping-shou-fei-che-luo-tishang-shou-9-shou-sheng-li">平手/飛車落ち上手 9 手勝利</h4>
+<p><a href="matta-illegal-hirate-09.zip">平手 再現用ムービー (.fm2)</a></p>
+<p>平手プレイヤー先手で初手から 76歩, 34歩, (66角同角待った)*5, (86歩72飛待った), 22角不成, 72飛, (56歩72飛待った), (31角成同金待った), 56歩, 31金, 同角不成, 62銀, 42金 で 9 手勝利できる。<br />
+飛車落ち上手でも全く同じ手順が可能。</p>
+<p>(56歩72飛待った) の部分で72飛が消える。これは、COMの違法手72飛により移動元の82の空白が移動先の72に上書きされたため。<br />
+(31角成同金待った), 56歩, 31金 の部分でCOMの違法手31金により31銀が消える。</p>
+<h4 id="fei-che-luo-tixia-shou-10-shou-sheng-li">飛車落ち下手 10 手勝利</h4>
+<p><a href="matta-illegal-hishaochi-sitate-10.zip">再現用ムービー (.fm2)</a></p>
+<p>初手から 34歩, 76歩, 44歩, (44角同角待った)*5, (56歩44角待った), 22角不成, 44角, (31角成同金待った), 56歩, 31金, 同角不成, 62銀, 42金 で 10 手勝利できる。</p>
+<p>(56歩44角待った) の部分でCOMの違法手44角により44歩が消える。<br />
+22角不成に対する44角は違法手で、実際にはパスになる。これは、COM側の22角が既に取られており、移動元の22の空白を移動先(空白)の44に上書きするという動作になるため。<br />
+(31角成同金待った), 56歩, 31金 の部分でCOMの違法手31金により31銀が消える。</p>
+<h4 id="er-mei-luo-tixia-shou-8-shou-sheng-li">二枚落ち下手 8 手勝利</h4>
+<p><a href="matta-illegal-nimaiochi-sitate-08.zip">再現用ムービー (.fm2)</a></p>
+<p>初手から 32金, 76歩, 62銀, (44角同歩待った)*4, (33角成同桂待った), (56歩33桂待った), 22角成, 33桂, (31馬同金待った), (56歩31金待った), 32馬, 45桂, 42金 で 8 手勝利できる。</p>
+<p>(56歩33桂待った) の部分でCOMの違法手33桂により33歩が消える。<br />
+(31馬同金待った), (56歩31金待った) の部分でCOMの違法手31金により31銀が消える。このように、プレイヤーが駒を取ってCOMがすぐ取り返す、という手順ではゼロ手で駒を消すことができる。</p>
+<h4 id="comyu-woxiao-su">COM玉を消す</h4>
+<p><a href="matta-illegal-remove-com-king.zip">再現用ムービー (.fm2)</a></p>
+<p>二枚落ち下手で初手から 32金, 76歩, 62銀, (44角同歩待った)*5, 77角, 52玉, 56歩 とするとCOMが違法手52玉を指し、その結果COM玉が消える。</p>
+<p>(44角同歩待った)*5 は定跡を抜けるために必要。これにより、77角の局面でCOMは定跡を使わず自力で52玉を指す。</p>
+<p>COM玉が消えても対局は続行できる。なお、COMは候補手が駒捨てのみになると投了してしまうため、チートなしではこの状態から全駒することはできないと思われる(最後の1駒がどうやっても取れない。チートで全駒するとCOMは投了する模様)。</p>
+<h4 id="bao-zou-bagu">暴走バグ</h4>
+<p><a href="matta-illegal-crash.zip">再現用ムービー (.fm2)</a></p>
+<p>平手プレイヤー先手で初手から 76歩, 34歩, (77角同角成待った)*5, 22角成 とするとCOMは違法手77角成を指し、77の地点にプレイヤー側の香が現れる。次にプレイヤーが何か指すとNESのCPUが暴走し、最終的に <code>$2004</code> を実行する。<br />
+このときの挙動は本体に依存すると思われる(PPUレジスタ領域を実行することになるため):</p>
+<ul>
+<li>エミュレータ(FCEUX, Mesen)ではオペコード 0 を読み込んで BRK 命令を実行し、その結果リセットがかかる(IRQ 割り込みアドレスは RESET と同一なため)。</li>
+<li>筆者所有のニューファミコンでは単にフリーズする。画面は一切動かない。</li>
+</ul>
+<p>COMの違法手77角成は、移動元22の空白を「成って」移動先77に上書きする動作になる。成ると駒の内部値が +7 されるため、上書きされる値はプレイヤー側の香(7)になる。<br />
+この不正な駒をCOM側の駒として扱い、ルーチンテーブルから対応するルーチンを呼ぼうとして上記の挙動となる。</p>
+<p>なお、77に発生した不正な駒を取ることはできない。プレイヤー側の駒取りのコードで不正な駒は弾かれる(何も取らなかったことにされる)ため。</p>
+<h2 id="resign">詰んでいないのに投了</h2>
+<p>COM玉が詰んでいないのにCOMが投了することがある。これの原因は 2 通りある:</p>
+<ul>
+<li>詰みを逃れる手はあるが、それらが全て駒捨てと判定されて却下されたため(<a href="https://taotao54321.github.io/NaitouResource/engine/#leaf-evaluation-first">末端局面評価 第 1 段階</a> を参照)。</li>
+<li><a href="https://taotao54321.github.io/NaitouResource/advantage-disadvantage/#disadvantage">取り返しフラグ補正</a> により、<a href="https://taotao54321.github.io/NaitouResource/engine/#compare-candidate-and-best">候補手と最善手の比較</a> を行う際の自殺手判定が機能せず、さらに自殺手が最善手に取って代わったため。</li>
+</ul>
+<p>後者のケースは取り返しフラグ補正があっても稀にしか起こらない(具体例は <a href="https://taotao54321.github.io/NaitouResource/kifu-minply-hirate/">平手 13 手勝利</a> などを参照)。自殺手は一般に総駒損価値が大きく、最善手として採用されにくいため。<br />
+自殺手が総駒損価値の不利を覆して最善手となるためには、以下の条件を満たす必要がある:</p>
+<ul>
+<li>ルート局面での <a href="https://taotao54321.github.io/NaitouResource/engine/#root-evaluation">COM power</a> が 18 または 19</li>
+<li>自殺手と比較対象の最善手がどちらも駒取りでない(捕獲する駒の価値が 0)</li>
+<li>自殺手の方が総駒得価値が大きく、<code>(総駒得価値の差分) &gt; (総駒損価値の差分)</code> である</li>
+</ul>
+<p>なお、ルート局面での COM power が 20 以上ならば自殺手は最善手にならない。<a href="https://taotao54321.github.io/NaitouResource/engine/#leaf-evaluation-second">末端局面評価 第 2 段階</a> において、COM power が 20 以上かつ捕獲する駒の価値が 2 未満ならば総駒得価値に応じて捕獲する駒の価値を増やす補正がかかり、上記の 2 番目の条件を満たさなくなるため。</p>
+<h2 id="check-with-king">玉で王手</h2>
+<p><a href="check-with-king.zip">再現用ムービー (.fm2)</a></p>
+<p>序盤(定跡内)では玉で王手できることがある。<a href="https://taotao54321.github.io/NaitouResource/advantage-disadvantage/#advantage">駒得マス</a> を参照。</p>
+<h2 id="player-suicide">王手放置</h2>
+<p><a href="player-suicide.zip">再現用ムービー (.fm2)</a></p>
+<p>二枚落ち上手ではプレイヤー側が王手放置できる手順がある。<a href="https://taotao54321.github.io/NaitouResource/engine/#book">定跡処理と最終的な指し手決定</a> を参照。</p>
+<h2 id="capture-com-king">COM玉を取る</h2>
+<p><a href="capture-com-king.zip">再現用ムービー (.fm2)</a></p>
+<p><a href="https://taotao54321.github.io/NaitouResource/advantage-disadvantage/#disadvantage">取り返しフラグ補正</a> が大量にかかると、COM玉の詰み判定に失敗してCOM玉が取れてしまうことがある。<a href="https://taotao54321.github.io/NaitouResource/engine/#book">定跡処理と最終的な指し手決定</a> を参照。</p>
+<h2 id="com-suicide-mate">COMが王手放置して詰ましてくる</h2>
+<p><a href="com-suicide-mate.zip">再現用ムービー (.fm2)</a></p>
+<p><a href="https://taotao54321.github.io/NaitouResource/advantage-disadvantage/#disadvantage">取り返しフラグ補正</a> が大量にかかると、プレイヤー玉の詰み判定を行う際に自殺手を弾き損ねて、自殺手によってプレイヤー玉が詰まされて負けになることがある。<a href="https://taotao54321.github.io/NaitouResource/engine/#leaf-evaluation-first">末端局面評価 第 1 段階</a> を参照。</p>
+<h2 id="stack-pointer">スタックポインタ設定ミス</h2>
+<p>時間切れ負け時のスタックポインタ設定コード(<code>$C32F</code>)は <code>ldx $7F</code> となっているが、正しくは <code>ldx #$7F</code> と思われる。<br />
+しかし、この後スタックから値を取り出すことはないのでたまたま壊れていない。</p>
+
+
+
+</body>
+</html>

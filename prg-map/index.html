@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>本将棋 内藤九段将棋秘伝 (FC) 攻略&#x2F;解析 - PRG-ROM マップ</title>
+
+  <link rel="stylesheet" href="https://taotao54321.github.io/NaitouResource/main.css">
+</head>
+<body>
+
+
+<header>
+  <a href="https://taotao54321.github.io/NaitouResource/">本将棋 内藤九段将棋秘伝 (FC) 攻略&#x2F;解析</a>
+</header>
+
+<p>
+Published on: 2022-01-21
+
+</p>
+
+<h1>PRG-ROM マップ</h1>
+
+<h2 id="gai-yao">概要</h2>
+<table><thead><tr><th>アドレス</th><th>種別</th><th>内容</th></tr></thead><tbody>
+<tr><td><code>$C000</code></td><td>code</td><td>RESET/IRQ ルーチン</td></tr>
+<tr><td><code>$C0E1</code></td><td>code</td><td>ゲームオーバーシーン</td></tr>
+<tr><td><code>$C161</code></td><td>code</td><td>パレット初期化ルーチン</td></tr>
+<tr><td><code>$C17A</code></td><td>code</td><td>NMI の特殊タスクの完了を待つルーチン</td></tr>
+<tr><td><code>$C17F</code></td><td>data</td><td>初期パレットデータ</td></tr>
+<tr><td><code>$C19F</code></td><td>code</td><td>BGデータをVRAMへ転送するルーチン (RLE 対応)</td></tr>
+<tr><td><code>$C1EB</code></td><td>code</td><td>VRAMをゼロクリアするルーチン</td></tr>
+<tr><td><code>$C207</code></td><td>code</td><td>NMI にスプライトDMAタスクを依頼し、完了を待つルーチン</td></tr>
+<tr><td><code>$C20E</code></td><td>code</td><td>入力更新ルーチン</td></tr>
+<tr><td><code>$C239</code></td><td>code</td><td>NMI ルーチン</td></tr>
+<tr><td><code>$C306</code></td><td>code</td><td>持ち時間表示用バッファへ数字を 1 つ書き込むルーチン</td></tr>
+<tr><td><code>$C36B</code></td><td>code</td><td>NMI タスク: パレット転送</td></tr>
+<tr><td><code>$C39A</code></td><td>code</td><td>NMI タスク: スプライトDMA</td></tr>
+<tr><td><code>$C3A7</code></td><td>code</td><td>NMI タスク: VRAMへのデータ転送 (Type A)</td></tr>
+<tr><td><code>$C3AD</code></td><td>code</td><td>VRAMへのデータ転送ルーチン (Type A)</td></tr>
+<tr><td><code>$C3D4</code></td><td>code</td><td>NMI タスク: VRAMへのデータ転送 (Type B)</td></tr>
+<tr><td><code>$C3FB</code></td><td>code</td><td>NMI タスク: 右上メッセージ欄の点滅表示</td></tr>
+<tr><td><code>$C44C</code></td><td>data</td><td>メッセージ欄 &quot;指せない&quot; BGデータ (Type A)</td></tr>
+<tr><td><code>$C45F</code></td><td>data</td><td>メッセージ欄 消去用 BGデータ (Type A)</td></tr>
+<tr><td><code>$C478</code></td><td>code</td><td>NMI タスク: 手数表示用バッファをVRAMへ転送</td></tr>
+<tr><td><code>$C4AB</code></td><td>code</td><td>タイトルシーン</td></tr>
+<tr><td><code>$C5DB</code></td><td>code</td><td>手合割表示用バッファ更新ルーチン</td></tr>
+<tr><td><code>$C605</code></td><td>code</td><td>デモプレイ開始ルーチン</td></tr>
+<tr><td><code>$C61A</code></td><td>data</td><td>手合割表示用 BGデータ placeholder (Type A)</td></tr>
+<tr><td><code>$C63F</code></td><td>data</td><td>手合割表示用 BGデータ データ部</td></tr>
+<tr><td><code>$C66F</code></td><td>data</td><td>タイトル画面 BGデータ (RLE)</td></tr>
+<tr><td><code>$C7F1</code></td><td>data</td><td>タイトル画面 スプライトデータ</td></tr>
+<tr><td><code>$C821</code></td><td>data</td><td>タイトル画面 BGデータ</td></tr>
+<tr><td><code>$C825</code></td><td>code</td><td>対局画面初期化ルーチン</td></tr>
+<tr><td><code>$C85D</code></td><td>data</td><td>対局画面 BGデータ (RLE)</td></tr>
+<tr><td><code>$CAC0</code></td><td>code</td><td></td></tr>
+<tr><td><code>$CB4E</code></td><td>code</td><td></td></tr>
+<tr><td><code>$CCAB</code></td><td>code</td><td></td></tr>
+<tr><td><code>$CCE8</code></td><td>code</td><td></td></tr>
+<tr><td><code>$CD26</code></td><td>code</td><td></td></tr>
+<tr><td><code>$CDC0</code></td><td>code</td><td></td></tr>
+<tr><td><code>$CDCE</code></td><td>code</td><td></td></tr>
+<tr><td><code>$CE4A</code></td><td>code</td><td>L キーが押された際の処理</td></tr>
+<tr><td><code>$CE76</code></td><td>code</td><td>R キーが押された際の処理</td></tr>
+<tr><td><code>$CE94</code></td><td>code</td><td>D キーが押された際の処理</td></tr>
+<tr><td><code>$CEB1</code></td><td>code</td><td>U キーが押された際の処理</td></tr>
+<tr><td><code>$CECE</code></td><td>code</td><td></td></tr>
+<tr><td><code>$CEE5</code></td><td>code</td><td></td></tr>
+<tr><td><code>$CEFF</code></td><td>code</td><td>駒を掴む際の処理</td></tr>
+<tr><td><code>$CF33</code></td><td>code</td><td>カーソル座標 (x,y) をマスに変換するルーチン</td></tr>
+<tr><td><code>$CF3E</code></td><td>code</td><td>プレイヤーが違法手を指そうとしたときの処理</td></tr>
+<tr><td><code>$CFD7</code></td><td>code</td><td></td></tr>
+<tr><td><code>$D094</code></td><td>code</td><td>手数描画ルーチン</td></tr>
+<tr><td><code>$D0CB</code></td><td>code</td><td>手数表示用バッファへ数字を 1 つ書き込むルーチン</td></tr>
+<tr><td><code>$D0EB</code></td><td>code</td><td>プレイヤー側の成/不成の選択処理</td></tr>
+<tr><td><code>$D161</code></td><td>data</td><td>「成る」「成らず」BGデータ (Type A)</td></tr>
+<tr><td><code>$D186</code></td><td>data</td><td>「成らず」消去用 BGデータ (Type A)</td></tr>
+<tr><td><code>$D19B</code></td><td>code</td><td>「王手です」「詰みです」表示要求ルーチン</td></tr>
+<tr><td><code>$D1D2</code></td><td>data</td><td>「王手です」BGデータ (Type A)</td></tr>
+<tr><td><code>$D1E5</code></td><td>data</td><td>「詰みです」BGデータ (Type A)</td></tr>
+<tr><td><code>$D1F8</code></td><td>code</td><td>右上キャラスプライト描画ルーチン</td></tr>
+<tr><td><code>$D227</code></td><td>code</td><td>スプライトバッファへの書き込みルーチン</td></tr>
+<tr><td><code>$D250</code></td><td>data</td><td>右上プレイヤー側キャラ スプライトデータ</td></tr>
+<tr><td><code>$D323</code></td><td>data</td><td>右上COM側キャラ スプライトデータ</td></tr>
+<tr><td><code>$D3C1</code></td><td>code</td><td>駒音を鳴らすルーチン</td></tr>
+<tr><td><code>$D3D8</code></td><td>code</td><td></td></tr>
+<tr><td><code>$D496</code></td><td>code</td><td>右上キャラスプライトを描画後、少し待つルーチン</td></tr>
+<tr><td><code>$D4A4</code></td><td>code</td><td></td></tr>
+<tr><td><code>$D4D3</code></td><td>data</td><td></td></tr>
+<tr><td><code>$D4F2</code></td><td>data</td><td></td></tr>
+<tr><td><code>$D4F9</code></td><td>data</td><td></td></tr>
+<tr><td><code>$D540</code></td><td>data</td><td></td></tr>
+<tr><td><code>$D564</code></td><td>data</td><td></td></tr>
+<tr><td><code>$D57C</code></td><td>data</td><td></td></tr>
+<tr><td><code>$D594</code></td><td>data</td><td></td></tr>
+<tr><td><code>$D5AC</code></td><td>data</td><td>将棋盤の星、および持ち時間表示の ':' のスプライトデータ</td></tr>
+<tr><td><code>$D5C4</code></td><td>data</td><td>デモプレイ入力 (0xFF 終端)</td></tr>
+<tr><td><code>$D5E0</code></td><td>data</td><td>「あなたの勝ち」BGデータ (Type A)</td></tr>
+<tr><td><code>$D5F9</code></td><td>data</td><td>「わたしの勝ち」BGデータ (Type A)</td></tr>
+<tr><td><code>$D612</code></td><td>data</td><td>時間制限「アリ」BGデータ (Type A)</td></tr>
+<tr><td><code>$D618</code></td><td>data</td><td>時間制限「ナシ」BGデータ (Type A)</td></tr>
+<tr><td><code>$D61E</code></td><td>code</td><td>対局シーンへジャンプ</td></tr>
+<tr><td><code>$D621</code></td><td>data</td><td>玉の近接利きデータ(相対インデックス形式)</td></tr>
+<tr><td><code>$D62A</code></td><td>data</td><td>金の近接利きデータ(相対インデックス形式)</td></tr>
+<tr><td><code>$D631</code></td><td>data</td><td>銀の近接利きデータ(相対インデックス形式)</td></tr>
+<tr><td><code>$D637</code></td><td>data</td><td>桂の近接利きデータ(相対インデックス形式)</td></tr>
+<tr><td><code>$D63A</code></td><td>data</td><td>歩の近接利きデータ(相対インデックス形式)</td></tr>
+<tr><td><code>$D63C</code></td><td>data</td><td>龍の近接利きデータ(相対インデックス形式)</td></tr>
+<tr><td><code>$D641</code></td><td>data</td><td>馬の近接利きデータ(相対インデックス形式)</td></tr>
+<tr><td><code>$D646</code></td><td>data</td><td>駒種ごとの近接利きデータ(相対インデックス形式)へのポインタテーブル</td></tr>
+<tr><td><code>$D666</code></td><td>data</td><td>駒種ごとの価値テーブルA</td></tr>
+<tr><td><code>$D676</code></td><td>data</td><td>駒種ごとの価値テーブルB</td></tr>
+<tr><td><code>$D686</code></td><td>data</td><td>駒種ごとの価値テーブルC</td></tr>
+<tr><td><code>$D696</code></td><td>data</td><td>駒種ごとの価値テーブルD</td></tr>
+<tr><td><code>$D6A6</code></td><td>data</td><td>近接駒の駒種ごとの利きデータ(相対座標形式)へのポインタテーブル</td></tr>
+<tr><td><code>$D6C6</code></td><td>data</td><td>空の近接利きデータ(相対インデックス形式と相対座標形式を兼ねる)</td></tr>
+<tr><td><code>$D6D6</code></td><td>data</td><td>玉の近接利きデータ(相対座標形式)</td></tr>
+<tr><td><code>$D6E6</code></td><td>data</td><td>金の近接利きデータ(相対座標形式)</td></tr>
+<tr><td><code>$D6F6</code></td><td>data</td><td>銀の近接利きデータ(相対座標形式)</td></tr>
+<tr><td><code>$D706</code></td><td>data</td><td>桂の近接利きデータ(相対座標形式)</td></tr>
+<tr><td><code>$D716</code></td><td>data</td><td>歩の近接利きデータ(相対座標形式)</td></tr>
+<tr><td><code>$D726</code></td><td>data</td><td>平手初期盤面 1〜3段目</td></tr>
+<tr><td><code>$D747</code></td><td>data</td><td>盤面 空白3段</td></tr>
+<tr><td><code>$D768</code></td><td>data</td><td>平手初期盤面 7〜9段目</td></tr>
+<tr><td><code>$D789</code></td><td>data</td><td>戦型ごとの定跡分岐へのポインタテーブル</td></tr>
+<tr><td><code>$D79D</code></td><td>data</td><td>戦型ごとの定跡手順へのポインタテーブル</td></tr>
+<tr><td><code>$D7B1</code></td><td>data</td><td>定跡分岐 中飛車</td></tr>
+<tr><td><code>$D7E4</code></td><td>data</td><td>定跡分岐 四間飛車</td></tr>
+<tr><td><code>$D817</code></td><td>data</td><td>定跡分岐 戦型ID=2 (空)</td></tr>
+<tr><td><code>$D818</code></td><td>data</td><td>定跡分岐 角換わり</td></tr>
+<tr><td><code>$D828</code></td><td>data</td><td>定跡分岐 筋違い角</td></tr>
+<tr><td><code>$D833</code></td><td>data</td><td>定跡分岐 戦型ID=5 (空)</td></tr>
+<tr><td><code>$D834</code></td><td>data</td><td>定跡分岐 プレイヤー飛車落ち</td></tr>
+<tr><td><code>$D849</code></td><td>data</td><td>定跡分岐 プレイヤー二枚落ち</td></tr>
+<tr><td><code>$D84F</code></td><td>data</td><td>定跡分岐 COM飛車落ち</td></tr>
+<tr><td><code>$D85F</code></td><td>data</td><td>定跡分岐 COM二枚落ち</td></tr>
+<tr><td><code>$D874</code></td><td>data</td><td>定跡手順 中飛車</td></tr>
+<tr><td><code>$D89B</code></td><td>data</td><td>定跡手順 四間飛車</td></tr>
+<tr><td><code>$D8BE</code></td><td>data</td><td>定跡手順 戦型ID=2 (空)</td></tr>
+<tr><td><code>$D8BF</code></td><td>data</td><td>定跡手順 角換わり</td></tr>
+<tr><td><code>$D8E8</code></td><td>data</td><td>定跡手順 筋違い角</td></tr>
+<tr><td><code>$D90D</code></td><td>data</td><td>定跡手順 戦型ID=5 (空)</td></tr>
+<tr><td><code>$D90E</code></td><td>data</td><td>定跡手順 プレイヤー飛車落ち</td></tr>
+<tr><td><code>$D931</code></td><td>data</td><td>定跡手順 プレイヤー二枚落ち</td></tr>
+<tr><td><code>$D958</code></td><td>data</td><td>定跡手順 COM飛車落ち</td></tr>
+<tr><td><code>$D979</code></td><td>data</td><td>定跡手順 COM二枚落ち</td></tr>
+<tr><td><code>$D996</code></td><td>code</td><td>対局シーン</td></tr>
+<tr><td><code>$D9D6</code></td><td>code</td><td>対局シーン プレイヤーの手番</td></tr>
+<tr><td><code>$DA54</code></td><td>code</td><td></td></tr>
+<tr><td><code>$DA7B</code></td><td>code</td><td></td></tr>
+<tr><td><code>$DA9B</code></td><td>code</td><td></td></tr>
+<tr><td><code>$DAE3</code></td><td>code</td><td></td></tr>
+<tr><td><code>$DAFA</code></td><td>code</td><td></td></tr>
+<tr><td><code>$DB0A</code></td><td>code</td><td></td></tr>
+<tr><td><code>$DCE3</code></td><td>code</td><td>対局シーン COMの手番</td></tr>
+<tr><td><code>$DDB9</code></td><td>code</td><td>COMの序盤処理</td></tr>
+<tr><td><code>$DDF0</code></td><td>code</td><td>COMの着手反映処理</td></tr>
+<tr><td><code>$DFDC</code></td><td>code</td><td>待った処理</td></tr>
+<tr><td><code>$E382</code></td><td>code</td><td>手合割に応じて局面と戦型関連データを初期化するルーチン</td></tr>
+<tr><td><code>$E488</code></td><td>code</td><td>マスを座標 (x,y) に変換するルーチン</td></tr>
+<tr><td><code>$E497</code></td><td>code</td><td>座標 (x,y) をマスに変換するルーチン</td></tr>
+<tr><td><code>$E49F</code></td><td>code</td><td>ビジーウェイトルーチン</td></tr>
+<tr><td><code>$E4B2</code></td><td>code</td><td>タイマーAの bit0 を得るルーチン (平手の戦型選択用)</td></tr>
+<tr><td><code>$E4B7</code></td><td>code</td><td>プレイヤーの指し手の合法性判定ルーチン</td></tr>
+<tr><td><code>$E527</code></td><td>code</td><td>近接駒の利きデータ(相対座標形式)をロードするルーチン</td></tr>
+<tr><td><code>$E540</code></td><td>code</td><td>プレイヤーの香を動かす指し手の合法性判定ルーチン</td></tr>
+<tr><td><code>$E55A</code></td><td>code</td><td>プレイヤーの龍を動かす指し手の合法性判定ルーチン</td></tr>
+<tr><td><code>$E55F</code></td><td>code</td><td>プレイヤーの飛を動かす指し手の合法性判定ルーチン</td></tr>
+<tr><td><code>$E57D</code></td><td>code</td><td>プレイヤーの馬を動かす指し手の合法性判定ルーチン</td></tr>
+<tr><td><code>$E582</code></td><td>code</td><td>プレイヤーの角を動かす指し手の合法性判定ルーチン</td></tr>
+<tr><td><code>$E5A8</code></td><td>code</td><td>プレイヤーの駒打ちの指し手の合法性判定ルーチン</td></tr>
+<tr><td><code>$E5FF</code></td><td>code</td><td>プレイヤーの遠隔駒の移動の合法性判定ルーチン</td></tr>
+<tr><td><code>$E62E</code></td><td>code</td><td>プレイヤーの指し手の移動距離が 2 以上かどうかを返すルーチン</td></tr>
+<tr><td><code>$E64D</code></td><td>code</td><td>COMの指し手の合法性判定ルーチン</td></tr>
+<tr><td><code>$E6CB</code></td><td>code</td><td>COMの香を動かす指し手の合法性判定ルーチン</td></tr>
+<tr><td><code>$E6E0</code></td><td>code</td><td>COMの龍を動かす指し手の合法性判定ルーチン</td></tr>
+<tr><td><code>$E6E5</code></td><td>code</td><td>COMの飛を動かす指し手の合法性判定ルーチン</td></tr>
+<tr><td><code>$E703</code></td><td>code</td><td>COMの馬を動かす指し手の合法性判定ルーチン</td></tr>
+<tr><td><code>$E708</code></td><td>code</td><td>COMの角を動かす指し手の合法性判定ルーチン</td></tr>
+<tr><td><code>$E72E</code></td><td>code</td><td>COMの駒打ちの指し手の合法性判定ルーチン</td></tr>
+<tr><td><code>$E784</code></td><td>code</td><td>COMの遠隔駒の移動の合法性判定ルーチン</td></tr>
+<tr><td><code>$E7B3</code></td><td>code</td><td>COMの指し手の移動距離が 2 以上かどうかを返すルーチン</td></tr>
+<tr><td><code>$E7D2</code></td><td>code</td><td>定跡関連データ初期化ルーチン</td></tr>
+<tr><td><code>$E7F8</code></td><td>code</td><td>定跡処理</td></tr>
+<tr><td><code>$E8E8</code></td><td>code</td><td>定跡手を採用するかどうかの判定</td></tr>
+<tr><td><code>$E90E</code></td><td>code</td><td>定跡手を採用するかどうかの判定: 駒損判定</td></tr>
+<tr><td><code>$E98A</code></td><td>code</td><td>局面Aを局面Bへコピーするルーチン</td></tr>
+<tr><td><code>$E9B2</code></td><td>code</td><td>局面Bを局面Aへコピーするルーチン</td></tr>
+<tr><td><code>$E9DA</code></td><td>code</td><td>利き情報初期化ルーチン</td></tr>
+<tr><td><code>$E9F2</code></td><td>code</td><td>プレイヤー側の利き情報更新ルーチン</td></tr>
+<tr><td><code>$EA20</code></td><td>code</td><td>プレイヤー側の利き情報更新: 近接駒の処理</td></tr>
+<tr><td><code>$EA57</code></td><td>code</td><td>プレイヤー側の利き情報更新: 指定マスへの利き追加および attacker 更新</td></tr>
+<tr><td><code>$EA80</code></td><td>code</td><td>プレイヤー側の利き情報更新: 香の処理</td></tr>
+<tr><td><code>$EA8A</code></td><td>code</td><td>プレイヤー側の利き情報更新: 単一方向の遠隔利きの処理</td></tr>
+<tr><td><code>$EB26</code></td><td>code</td><td>プレイヤー側の利き情報更新: 飛/角の処理</td></tr>
+<tr><td><code>$EB3D</code></td><td>data</td><td>飛/角の遠隔利きデータ</td></tr>
+<tr><td><code>$EB45</code></td><td>code</td><td>プレイヤー側の利き情報更新: 飛の処理</td></tr>
+<tr><td><code>$EB4D</code></td><td>code</td><td>プレイヤー側の利き情報更新: 角の処理</td></tr>
+<tr><td><code>$EB55</code></td><td>code</td><td>プレイヤー側の利き情報更新: 龍の処理</td></tr>
+<tr><td><code>$EB5D</code></td><td>code</td><td>プレイヤー側の利き情報更新: 馬の処理</td></tr>
+<tr><td><code>$EB65</code></td><td>data</td><td>プレイヤー側の利き情報更新: 駒種ごとの処理ルーチンテーブル</td></tr>
+<tr><td><code>$EB85</code></td><td>code</td><td>COM側の利き情報更新ルーチン</td></tr>
+<tr><td><code>$EBB6</code></td><td>code</td><td>COM側の利き情報更新: 近接駒の処理</td></tr>
+<tr><td><code>$EBF2</code></td><td>code</td><td>COM側の利き情報更新: 指定マスへの利き追加および attacker 更新</td></tr>
+<tr><td><code>$EC1B</code></td><td>code</td><td>COM側の利き情報更新: 香の処理</td></tr>
+<tr><td><code>$EC25</code></td><td>code</td><td>COM側の利き情報更新: 単一方向の遠隔利きの処理</td></tr>
+<tr><td><code>$ECC1</code></td><td>code</td><td>COM側の利き情報更新: 飛/角の処理</td></tr>
+<tr><td><code>$ECD8</code></td><td>code</td><td>COM側の利き情報更新: 飛の処理</td></tr>
+<tr><td><code>$ECE0</code></td><td>code</td><td>COM側の利き情報更新: 角の処理</td></tr>
+<tr><td><code>$ECE8</code></td><td>code</td><td>COM側の利き情報更新: 龍の処理</td></tr>
+<tr><td><code>$ECF0</code></td><td>code</td><td>COM側の利き情報更新: 馬の処理</td></tr>
+<tr><td><code>$ECF8</code></td><td>code</td><td>COM側の利き情報更新: 駒種ごとの処理ルーチンテーブル</td></tr>
+<tr><td><code>$ED18</code></td><td>code</td><td>局面評価ルーチン</td></tr>
+<tr><td><code>$EEE2</code></td><td>code</td><td>局面評価: 駒得マスの処理</td></tr>
+<tr><td><code>$EF11</code></td><td>code</td><td>局面評価: 駒損マスの処理</td></tr>
+<tr><td><code>$EF4A</code></td><td>code</td><td>2つのマスの間の距離を求めるルーチン</td></tr>
+<tr><td><code>$EF70</code></td><td>code</td><td>探索による思考ルーチン (定跡を使わない)</td></tr>
+<tr><td><code>$F06D</code></td><td>code</td><td>探索による思考: 盤上の駒を動かす指し手の生成</td></tr>
+<tr><td><code>$F08B</code></td><td>code</td><td>探索による思考: 盤上の駒を動かす指し手の生成: 近接移動</td></tr>
+<tr><td><code>$F0D5</code></td><td>code</td><td>探索による思考: 盤上の駒を動かす指し手の評価</td></tr>
+<tr><td><code>$F0FE</code></td><td>code</td><td>探索による思考: 盤上の駒を動かす指し手を適用</td></tr>
+<tr><td><code>$F150</code></td><td>code</td><td>探索による思考: 盤上の駒を動かす指し手の生成: 飛/角</td></tr>
+<tr><td><code>$F167</code></td><td>data</td><td>飛/角の遠隔利きデータ</td></tr>
+<tr><td><code>$F16F</code></td><td>code</td><td>探索による思考: 盤上の駒を動かす指し手の生成: 飛</td></tr>
+<tr><td><code>$F177</code></td><td>code</td><td>探索による思考: 盤上の駒を動かす指し手の生成: 角</td></tr>
+<tr><td><code>$F17F</code></td><td>code</td><td>探索による思考: 盤上の駒を動かす指し手の生成: 香</td></tr>
+<tr><td><code>$F189</code></td><td>code</td><td>探索による思考: 盤上の駒を動かす指し手の生成: 龍</td></tr>
+<tr><td><code>$F191</code></td><td>code</td><td>探索による思考: 盤上の駒を動かす指し手の生成: 馬</td></tr>
+<tr><td><code>$F199</code></td><td>code</td><td>探索による思考: 盤上の駒を動かす指し手の生成: 単一方向への遠隔移動</td></tr>
+<tr><td><code>$F1C7</code></td><td>code</td><td>探索による思考: 駒打ちの指し手の生成</td></tr>
+<tr><td><code>$F205</code></td><td>data</td><td>COM側の駒種ごとの打てる範囲の制限</td></tr>
+<tr><td><code>$F20C</code></td><td>code</td><td>COM側の歩のある筋を求めるルーチン</td></tr>
+<tr><td><code>$F23B</code></td><td>code</td><td>探索による思考: 駒打ちの指し手の適用/評価</td></tr>
+<tr><td><code>$F262</code></td><td>code</td><td>探索による思考: 駒種ごとの盤上の駒を動かす指し手生成ルーチンテーブル</td></tr>
+<tr><td><code>$F2AC</code></td><td>code</td><td>候補手の評価修正および最善手との比較を行うルーチン</td></tr>
+<tr><td><code>$F6F9</code></td><td>code</td><td>最善手更新ルーチン</td></tr>
+<tr><td><code>$F854</code></td><td>code</td><td>プレイヤー玉の詰み判定ルーチン (候補手を適用した局面が対象)</td></tr>
+<tr><td><code>$F8AE</code></td><td>data</td><td>距離 1 以内への相対インデックスたち</td></tr>
+<tr><td><code>$F8B7</code></td><td>code</td><td>プレイヤー玉の詰み判定: 玉以外の盤上の駒を動かす指し手を生成</td></tr>
+<tr><td><code>$F937</code></td><td>code</td><td>プレイヤー玉の詰み判定: ある盤上の駒を動かす指し手を生成</td></tr>
+<tr><td><code>$F952</code></td><td>code</td><td>プレイヤー玉の詰み判定: ある盤上の駒を動かす指し手を生成: 近接移動</td></tr>
+<tr><td><code>$F98E</code></td><td>code</td><td>プレイヤー玉の詰み判定: ある盤上の駒を動かす指し手を適用/判定</td></tr>
+<tr><td><code>$F9AD</code></td><td>code</td><td>プレイヤー玉の詰み判定: ある盤上の駒を動かす指し手を適用</td></tr>
+<tr><td><code>$F9C5</code></td><td>code</td><td>プレイヤー玉の詰み判定: ある盤上の駒を動かす指し手を生成: 飛/角</td></tr>
+<tr><td><code>$F9E1</code></td><td>code</td><td>プレイヤー玉の詰み判定: ある盤上の駒を動かす指し手を生成: 飛</td></tr>
+<tr><td><code>$F9E7</code></td><td>code</td><td>プレイヤー玉の詰み判定: ある盤上の駒を動かす指し手を生成: 角</td></tr>
+<tr><td><code>$F9ED</code></td><td>code</td><td>プレイヤー玉の詰み判定: ある盤上の駒を動かす指し手を生成: 香</td></tr>
+<tr><td><code>$F9F8</code></td><td>code</td><td>プレイヤー玉の詰み判定: ある盤上の駒を動かす指し手を生成: 龍</td></tr>
+<tr><td><code>$FA03</code></td><td>code</td><td>プレイヤー玉の詰み判定: ある盤上の駒を動かす指し手を生成: 馬</td></tr>
+<tr><td><code>$FA0E</code></td><td>code</td><td>プレイヤー玉の詰み判定: ある盤上の駒を動かす指し手を生成: 単一方向への遠隔移動</td></tr>
+<tr><td><code>$FA3A</code></td><td>code</td><td>プレイヤー玉の詰み判定: あるマスに駒を打つ手を生成</td></tr>
+<tr><td><code>$FA6E</code></td><td>data</td><td>プレイヤー側の駒種ごとの打てる範囲の制限</td></tr>
+<tr><td><code>$FA75</code></td><td>code</td><td>プレイヤー玉とその両隣の筋に歩があるかどうか調べるルーチン</td></tr>
+<tr><td><code>$FAB5</code></td><td>code</td><td>プレイヤー玉の詰み判定: あるマスに駒を打つ手を適用/判定</td></tr>
+<tr><td><code>$FAD8</code></td><td>code</td><td>ルート局面に対して現在の候補手を適用するルーチン</td></tr>
+<tr><td><code>$FB03</code></td><td>code</td><td>プレイヤー玉の詰み判定: 指し手を適用した結果詰みを逃れているか判定</td></tr>
+<tr><td><code>$FB1A</code></td><td>data</td><td>プレイヤー玉の詰み判定: 駒種ごとの盤上の駒を動かす指し手生成ルーチンテーブル</td></tr>
+<tr><td><code>$FB3A</code></td><td>code</td><td>フレームごとのサウンド処理ルーチン (NMI から呼ばれる)</td></tr>
+<tr><td><code>$FB4D</code></td><td>code</td><td>APU <code>$4015</code> 更新ルーチン</td></tr>
+<tr><td><code>$FB59</code></td><td>code</td><td>矩形波1 発声ルーチン</td></tr>
+<tr><td><code>$FB6A</code></td><td>code</td><td>三角波 発声ルーチン</td></tr>
+<tr><td><code>$FB80</code></td><td>code</td><td>フレームごとの矩形波1処理ルーチン</td></tr>
+<tr><td><code>$FB8B</code></td><td>code</td><td>矩形波1 サウンドデータ処理ルーチン</td></tr>
+<tr><td><code>$FBE8</code></td><td>code</td><td>矩形波1 サウンドデータアドレス設定ルーチン</td></tr>
+<tr><td><code>$FBF1</code></td><td>code</td><td>(未使用コード)</td></tr>
+<tr><td><code>$FC00</code></td><td>code</td><td>矩形波1 消音ルーチン</td></tr>
+<tr><td><code>$FC22</code></td><td>code</td><td>矩形波1 音色設定ルーチン</td></tr>
+<tr><td><code>$FC2F</code></td><td>code</td><td>指定した音階に対応する矩形波/三角波周波数タイマー値を返すルーチン</td></tr>
+<tr><td><code>$FC46</code></td><td>code</td><td>フレームごとの三角波処理ルーチン</td></tr>
+<tr><td><code>$FC51</code></td><td>code</td><td>三角波 サウンドデータ処理ルーチン</td></tr>
+<tr><td><code>$FCA7</code></td><td>code</td><td>三角波 サウンドデータアドレス設定ルーチン</td></tr>
+<tr><td><code>$FCB0</code></td><td>code</td><td>(未使用コード)</td></tr>
+<tr><td><code>$FCBF</code></td><td>code</td><td>三角波 消音ルーチン</td></tr>
+<tr><td><code>$FCCB</code></td><td>data</td><td>矩形波1 音色設定ルーチンテーブル</td></tr>
+<tr><td><code>$FCE9</code></td><td>code</td><td>矩形波1 音色設定: 音色0</td></tr>
+<tr><td><code>$FCEE</code></td><td>code</td><td>矩形波1 音色設定: 音色1</td></tr>
+<tr><td><code>$FCF3</code></td><td>code</td><td>矩形波1 音色設定: 音色2</td></tr>
+<tr><td><code>$FCF8</code></td><td>code</td><td>矩形波1 音色設定: 音色3</td></tr>
+<tr><td><code>$FCFD</code></td><td>code</td><td>矩形波1 音色設定: 音色4</td></tr>
+<tr><td><code>$FD02</code></td><td>code</td><td>矩形波1 音色設定: 音色5</td></tr>
+<tr><td><code>$FD07</code></td><td>data</td><td>各音階に対応する周波数タイマー値</td></tr>
+<tr><td><code>$FD21</code></td><td>code</td><td>矩形波1 有効化ルーチン</td></tr>
+<tr><td><code>$FD28</code></td><td>code</td><td>三角波 有効化ルーチン</td></tr>
+<tr><td><code>$FD2F</code></td><td>code</td><td>サウンド 0 再生要求ルーチン</td></tr>
+<tr><td><code>$FD33</code></td><td>code</td><td>サウンド再生要求: 矩形波1</td></tr>
+<tr><td><code>$FD41</code></td><td>data</td><td>サウンド 0 データ 矩形波1</td></tr>
+<tr><td><code>$FD48</code></td><td>code</td><td>サウンド 1 再生要求ルーチン</td></tr>
+<tr><td><code>$FD4F</code></td><td>data</td><td>サウンド 1 データ 矩形波1</td></tr>
+<tr><td><code>$FD59</code></td><td>code</td><td>サウンド 2 再生要求ルーチン</td></tr>
+<tr><td><code>$FD60</code></td><td>data</td><td>サウンド 2 データ 矩形波1</td></tr>
+<tr><td><code>$FD66</code></td><td>code</td><td>サウンド 3 再生要求ルーチン</td></tr>
+<tr><td><code>$FD6D</code></td><td>data</td><td>サウンド 3 データ 矩形波1</td></tr>
+<tr><td><code>$FD73</code></td><td>code</td><td>サウンド 4 再生要求ルーチン</td></tr>
+<tr><td><code>$FD81</code></td><td>code</td><td>サウンド再生要求: 三角波</td></tr>
+<tr><td><code>$FD8C</code></td><td>data</td><td>サウンド 4 データ 矩形波1</td></tr>
+<tr><td><code>$FD9A</code></td><td>data</td><td>サウンド 4 データ 三角波</td></tr>
+<tr><td><code>$FDA6</code></td><td>code</td><td>サウンド 5 再生要求ルーチン</td></tr>
+<tr><td><code>$FDB4</code></td><td>data</td><td>サウンド 5 データ 三角波</td></tr>
+<tr><td><code>$FDBF</code></td><td>code</td><td>サウンド 6 再生要求ルーチン</td></tr>
+<tr><td><code>$FDC6</code></td><td>data</td><td>サウンド 6 データ 矩形波1</td></tr>
+<tr><td><code>$FDD2</code></td><td>code</td><td>サウンド 7 再生要求ルーチン</td></tr>
+<tr><td><code>$FDD9</code></td><td>data</td><td>サウンド 7 データ 矩形波1</td></tr>
+<tr><td><code>$FDE6</code></td><td>code</td><td>サウンド 8 再生要求ルーチン</td></tr>
+<tr><td><code>$FDED</code></td><td>data</td><td>サウンド 8 データ 矩形波1</td></tr>
+<tr><td><code>$FDF4</code></td><td>code</td><td>サウンド 9 再生要求ルーチン</td></tr>
+<tr><td><code>$FDFB</code></td><td>data</td><td>サウンド 9 データ 矩形波1</td></tr>
+<tr><td><code>$FE01</code></td><td>code</td><td>サウンド 10 再生要求ルーチン</td></tr>
+<tr><td><code>$FE0F</code></td><td>data</td><td>サウンド 10 データ 矩形波1</td></tr>
+<tr><td><code>$FE74</code></td><td>data</td><td>サウンド 10 データ 三角波</td></tr>
+<tr><td><code>$FE8A</code></td><td>code</td><td>サウンド 11 再生要求ルーチン</td></tr>
+<tr><td><code>$FE98</code></td><td>data</td><td>サウンド 11 データ 矩形波1</td></tr>
+<tr><td><code>$FEBF</code></td><td>code</td><td>サウンド 12 再生要求ルーチン</td></tr>
+<tr><td><code>$FEC6</code></td><td>data</td><td>サウンド 12 データ 矩形波1</td></tr>
+<tr><td><code>$FEE9-$FFDF</code></td><td></td><td>(未使用)</td></tr>
+<tr><td><code>$FFE0</code></td><td>code</td><td>入力更新ルーチン: 拡張ポート対応</td></tr>
+<tr><td><code>$FFEF-$FFF9</code></td><td></td><td>(未使用)</td></tr>
+<tr><td><code>$FFFA</code></td><td>data</td><td>割り込みベクタ</td></tr>
+</tbody></table>
+
+
+
+</body>
+</html>

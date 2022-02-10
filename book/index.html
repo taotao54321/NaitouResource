@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>本将棋 内藤九段将棋秘伝 (FC) 攻略&#x2F;解析 - 定跡</title>
+
+  <link rel="stylesheet" href="https://taotao54321.github.io/NaitouResource/main.css">
+</head>
+<body>
+
+
+<header>
+  <a href="https://taotao54321.github.io/NaitouResource/">本将棋 内藤九段将棋秘伝 (FC) 攻略&#x2F;解析</a>
+</header>
+
+<p>
+Published on: 2022-01-21
+
+</p>
+
+<h1>定跡</h1>
+
+<p>定跡は <a href="https://taotao54321.github.io/NaitouResource/ram-map/#formation">戦型</a> 別に定義されており、プレイヤーの特定の指し手(移動先と駒種の組)への対応を定める「定跡分岐」と、序盤の手順を定める「定跡手順」からなる。<br />
+定跡分岐は具体的な応手または戦型変更のいずれか。<br />
+定跡手は移動元と移動先の組からなる(駒種は指定されていない)。</p>
+<p>具体的な定跡処理については <a href="https://taotao54321.github.io/NaitouResource/engine/#book">定跡処理と最終的な指し手決定</a> を参照。</p>
+<p>以下に戦型別の定跡を示す。定跡手については筆者が推測した想定手(駒種を補完したもの)も示す。</p>
+<h2 id="si-jian-fei-che">四間飛車</h2>
+<h3 id="si-jian-fei-che-ding-ji-fen-qi">四間飛車 定跡分岐</h3>
+<table><thead><tr><th>プレイヤーの指し手</th><th>対応</th><th>想定手</th></tr></thead><tbody>
+<tr><td>22馬</td><td>戦型変更: 角換わり</td><td></td></tr>
+<tr><td>22角</td><td>戦型変更: 角換わり</td><td></td></tr>
+<tr><td>55角</td><td>53 -&gt; 54</td><td>54歩</td></tr>
+<tr><td>46角</td><td>44 -&gt; 45</td><td>45歩</td></tr>
+<tr><td>46銀</td><td>44 -&gt; 45</td><td>45歩</td></tr>
+<tr><td>26銀</td><td>42 -&gt; 32</td><td>32飛</td></tr>
+<tr><td>46歩</td><td>22 -&gt; 33</td><td>33角</td></tr>
+<tr><td>96歩</td><td>93 -&gt; 94</td><td>94歩</td></tr>
+<tr><td>25歩</td><td>22 -&gt; 33</td><td>33角</td></tr>
+<tr><td>35銀</td><td>44 -&gt; 45</td><td>45歩</td></tr>
+</tbody></table>
+<h3 id="si-jian-fei-che-ding-ji-shou-shun">四間飛車 定跡手順</h3>
+<table><thead><tr><th>指し手</th><th>想定手</th></tr></thead><tbody>
+<tr><td>33 -&gt; 34</td><td>34歩</td></tr>
+<tr><td>43 -&gt; 44</td><td>44歩</td></tr>
+<tr><td>31 -&gt; 32</td><td>32銀</td></tr>
+<tr><td>82 -&gt; 42</td><td>42飛</td></tr>
+<tr><td>32 -&gt; 43</td><td>43銀</td></tr>
+<tr><td>51 -&gt; 62</td><td>62玉</td></tr>
+<tr><td>62 -&gt; 72</td><td>72玉</td></tr>
+<tr><td>72 -&gt; 82</td><td>82玉</td></tr>
+<tr><td>71 -&gt; 72</td><td>72銀</td></tr>
+<tr><td>41 -&gt; 52</td><td>52金左</td></tr>
+<tr><td>22 -&gt; 33</td><td>33角</td></tr>
+<tr><td>63 -&gt; 64</td><td>64歩</td></tr>
+<tr><td>52 -&gt; 63</td><td>63金</td></tr>
+<tr><td>73 -&gt; 74</td><td>74歩</td></tr>
+<tr><td>42 -&gt; 41</td><td>41飛</td></tr>
+<tr><td>93 -&gt; 94</td><td>94歩</td></tr>
+<tr><td>44 -&gt; 45</td><td>45歩</td></tr>
+</tbody></table>
+<h2 id="zhong-fei-che">中飛車</h2>
+<h3 id="zhong-fei-che-ding-ji-fen-qi">中飛車 定跡分岐</h3>
+<table><thead><tr><th>プレイヤーの指し手</th><th>対応</th><th>想定手</th></tr></thead><tbody>
+<tr><td>22馬</td><td>戦型変更: 角換わり</td><td></td></tr>
+<tr><td>22角</td><td>戦型変更: 角換わり</td><td></td></tr>
+<tr><td>55角</td><td>53 -&gt; 54</td><td>54歩</td></tr>
+<tr><td>46角</td><td>44 -&gt; 45</td><td>45歩</td></tr>
+<tr><td>46銀</td><td>44 -&gt; 45</td><td>45歩</td></tr>
+<tr><td>26銀</td><td>41 -&gt; 32</td><td>32金</td></tr>
+<tr><td>46歩</td><td>22 -&gt; 33</td><td>33角</td></tr>
+<tr><td>96歩</td><td>93 -&gt; 94</td><td>94歩</td></tr>
+<tr><td>25歩</td><td>22 -&gt; 33</td><td>33角</td></tr>
+<tr><td>35銀</td><td>44 -&gt; 45</td><td>45歩</td></tr>
+</tbody></table>
+<h3 id="zhong-fei-che-ding-ji-shou-shun">中飛車 定跡手順</h3>
+<table><thead><tr><th>指し手</th><th>想定手</th></tr></thead><tbody>
+<tr><td>33 -&gt; 34</td><td>34歩</td></tr>
+<tr><td>43 -&gt; 44</td><td>44歩</td></tr>
+<tr><td>31 -&gt; 42</td><td>42銀</td></tr>
+<tr><td>82 -&gt; 52</td><td>52飛</td></tr>
+<tr><td>42 -&gt; 43</td><td>43銀</td></tr>
+<tr><td>51 -&gt; 62</td><td>62玉</td></tr>
+<tr><td>62 -&gt; 72</td><td>72玉</td></tr>
+<tr><td>71 -&gt; 62</td><td>62銀</td></tr>
+<tr><td>22 -&gt; 33</td><td>33角</td></tr>
+<tr><td>53 -&gt; 54</td><td>54歩</td></tr>
+<tr><td>63 -&gt; 64</td><td>64歩</td></tr>
+<tr><td>62 -&gt; 63</td><td>63銀</td></tr>
+<tr><td>61 -&gt; 62</td><td>62金</td></tr>
+<tr><td>41 -&gt; 42</td><td>42金</td></tr>
+<tr><td>42 -&gt; 53</td><td>53金</td></tr>
+<tr><td>52 -&gt; 22</td><td>22飛</td></tr>
+<tr><td>23 -&gt; 24</td><td>24歩</td></tr>
+<tr><td>24 -&gt; 25</td><td>25歩</td></tr>
+<tr><td>44 -&gt; 45</td><td>45歩</td></tr>
+</tbody></table>
+<h2 id="jiao-huan-wari">角換わり</h2>
+<h3 id="jiao-huan-wari-ding-ji-fen-qi">角換わり 定跡分岐</h3>
+<table><thead><tr><th>プレイヤーの指し手</th><th>対応</th><th>想定手</th></tr></thead><tbody>
+<tr><td>45角</td><td>戦型変更: 筋違い角</td><td></td></tr>
+<tr><td>56角</td><td>戦型変更: 筋違い角</td><td></td></tr>
+<tr><td>96歩</td><td>93 -&gt; 94</td><td>94歩</td></tr>
+</tbody></table>
+<h3 id="jiao-huan-wari-ding-ji-shou-shun">角換わり 定跡手順</h3>
+<table><thead><tr><th>指し手</th><th>想定手</th></tr></thead><tbody>
+<tr><td>33 -&gt; 34</td><td>34歩</td></tr>
+<tr><td>31 -&gt; 22</td><td>22銀</td></tr>
+<tr><td>22 -&gt; 33</td><td>33銀</td></tr>
+<tr><td>71 -&gt; 62</td><td>62銀</td></tr>
+<tr><td>83 -&gt; 84</td><td>84歩</td></tr>
+<tr><td>41 -&gt; 32</td><td>32金</td></tr>
+<tr><td>84 -&gt; 85</td><td>85歩</td></tr>
+<tr><td>61 -&gt; 52</td><td>52金</td></tr>
+<tr><td>51 -&gt; 41</td><td>41玉</td></tr>
+<tr><td>63 -&gt; 64</td><td>64歩</td></tr>
+<tr><td>62 -&gt; 63</td><td>63銀</td></tr>
+<tr><td>73 -&gt; 74</td><td>74歩</td></tr>
+<tr><td>41 -&gt; 31</td><td>31玉</td></tr>
+<tr><td>31 -&gt; 22</td><td>22玉</td></tr>
+<tr><td>43 -&gt; 44</td><td>44歩</td></tr>
+<tr><td>52 -&gt; 43</td><td>43金右</td></tr>
+<tr><td>93 -&gt; 94</td><td>94歩</td></tr>
+<tr><td>81 -&gt; 73</td><td>73桂</td></tr>
+<tr><td>64 -&gt; 65</td><td>65歩</td></tr>
+<tr><td>63 -&gt; 54</td><td>54銀</td></tr>
+</tbody></table>
+<h2 id="jin-wei-ijiao">筋違い角</h2>
+<h3 id="jin-wei-ijiao-ding-ji-fen-qi">筋違い角 定跡分岐</h3>
+<table><thead><tr><th>プレイヤーの指し手</th><th>対応</th><th>想定手</th></tr></thead><tbody>
+<tr><td>96歩</td><td>93 -&gt; 94</td><td>94歩</td></tr>
+<tr><td>16歩</td><td>13 -&gt; 14</td><td>14歩</td></tr>
+</tbody></table>
+<h3 id="jin-wei-ijiao-ding-ji-shou-shun">筋違い角 定跡手順</h3>
+<table><thead><tr><th>指し手</th><th>想定手</th></tr></thead><tbody>
+<tr><td>33 -&gt; 34</td><td>34歩</td></tr>
+<tr><td>31 -&gt; 22</td><td>22銀</td></tr>
+<tr><td>61 -&gt; 52</td><td>52金右</td></tr>
+<tr><td>41 -&gt; 32</td><td>32金</td></tr>
+<tr><td>22 -&gt; 33</td><td>33銀</td></tr>
+<tr><td>71 -&gt; 62</td><td>62銀</td></tr>
+<tr><td>83 -&gt; 84</td><td>84歩</td></tr>
+<tr><td>84 -&gt; 85</td><td>85歩</td></tr>
+<tr><td>51 -&gt; 41</td><td>41玉</td></tr>
+<tr><td>63 -&gt; 64</td><td>64歩</td></tr>
+<tr><td>62 -&gt; 63</td><td>63銀</td></tr>
+<tr><td>53 -&gt; 54</td><td>54銀</td></tr>
+<tr><td>73 -&gt; 74</td><td>74歩</td></tr>
+<tr><td>81 -&gt; 73</td><td>73桂</td></tr>
+<tr><td>93 -&gt; 94</td><td>94歩</td></tr>
+<tr><td>13 -&gt; 14</td><td>14歩</td></tr>
+<tr><td>33 -&gt; 44</td><td>44銀</td></tr>
+<tr><td>64 -&gt; 65</td><td>65歩</td></tr>
+</tbody></table>
+<h2 id="pureiyafei-che-luo-ti">プレイヤー飛車落ち</h2>
+<h3 id="pureiyafei-che-luo-ti-ding-ji-fen-qi">プレイヤー飛車落ち 定跡分岐</h3>
+<table><thead><tr><th>プレイヤーの指し手</th><th>対応</th><th>想定手</th></tr></thead><tbody>
+<tr><td>16歩</td><td>13 -&gt; 14</td><td>14歩</td></tr>
+<tr><td>96歩</td><td>93 -&gt; 94</td><td>94歩</td></tr>
+<tr><td>22角</td><td>31 -&gt; 22</td><td>22同銀</td></tr>
+<tr><td>22馬</td><td>31 -&gt; 22</td><td>22同銀</td></tr>
+</tbody></table>
+<h3 id="pureiyafei-che-luo-ti-ding-ji-shou-shun">プレイヤー飛車落ち 定跡手順</h3>
+<table><thead><tr><th>指し手</th><th>想定手</th></tr></thead><tbody>
+<tr><td>33 -&gt; 34</td><td>34歩</td></tr>
+<tr><td>83 -&gt; 84</td><td>84歩</td></tr>
+<tr><td>84 -&gt; 85</td><td>85歩</td></tr>
+<tr><td>41 -&gt; 32</td><td>32金</td></tr>
+<tr><td>71 -&gt; 62</td><td>62銀</td></tr>
+<tr><td>61 -&gt; 52</td><td>52金</td></tr>
+<tr><td>51 -&gt; 41</td><td>41玉</td></tr>
+<tr><td>53 -&gt; 54</td><td>54歩</td></tr>
+<tr><td>73 -&gt; 74</td><td>74歩</td></tr>
+<tr><td>31 -&gt; 42</td><td>42銀</td></tr>
+<tr><td>63 -&gt; 64</td><td>64歩</td></tr>
+<tr><td>62 -&gt; 63</td><td>63銀</td></tr>
+<tr><td>81 -&gt; 73</td><td>73桂</td></tr>
+<tr><td>93 -&gt; 94</td><td>94歩</td></tr>
+<tr><td>13 -&gt; 14</td><td>14歩</td></tr>
+<tr><td>22 -&gt; 33</td><td>33角</td></tr>
+<tr><td>64 -&gt; 65</td><td>65歩</td></tr>
+</tbody></table>
+<h2 id="pureiyaer-mei-luo-ti">プレイヤー二枚落ち</h2>
+<h3 id="pureiyaer-mei-luo-ti-ding-ji-fen-qi">プレイヤー二枚落ち 定跡分岐</h3>
+<table><thead><tr><th>プレイヤーの指し手</th><th>対応</th><th>想定手</th></tr></thead><tbody>
+<tr><td>56歩</td><td>53 -&gt; 54</td><td>54歩</td></tr>
+</tbody></table>
+<h3 id="pureiyaer-mei-luo-ti-ding-ji-shou-shun">プレイヤー二枚落ち 定跡手順</h3>
+<table><thead><tr><th>指し手</th><th>想定手</th></tr></thead><tbody>
+<tr><td>33 -&gt; 34</td><td>34歩</td></tr>
+<tr><td>63 -&gt; 64</td><td>64歩</td></tr>
+<tr><td>64 -&gt; 65</td><td>65歩</td></tr>
+<tr><td>82 -&gt; 62</td><td>62飛</td></tr>
+<tr><td>73 -&gt; 74</td><td>74歩</td></tr>
+<tr><td>74 -&gt; 75</td><td>75歩</td></tr>
+<tr><td>71 -&gt; 72</td><td>72銀</td></tr>
+<tr><td>72 -&gt; 73</td><td>73銀</td></tr>
+<tr><td>41 -&gt; 32</td><td>32金</td></tr>
+<tr><td>61 -&gt; 52</td><td>52金</td></tr>
+<tr><td>51 -&gt; 41</td><td>41玉</td></tr>
+<tr><td>31 -&gt; 42</td><td>42銀</td></tr>
+<tr><td>53 -&gt; 54</td><td>54歩</td></tr>
+<tr><td>73 -&gt; 74</td><td>74銀</td></tr>
+<tr><td>81 -&gt; 73</td><td>73桂</td></tr>
+<tr><td>93 -&gt; 94</td><td>94歩</td></tr>
+<tr><td>13 -&gt; 14</td><td>14歩</td></tr>
+<tr><td>62 -&gt; 61</td><td>61飛</td></tr>
+<tr><td>75 -&gt; 76</td><td>76歩</td></tr>
+</tbody></table>
+<h2 id="comfei-che-luo-ti">COM飛車落ち</h2>
+<h3 id="comfei-che-luo-ti-ding-ji-fen-qi">COM飛車落ち 定跡分岐</h3>
+<table><thead><tr><th>プレイヤーの指し手</th><th>対応</th><th>想定手</th></tr></thead><tbody>
+<tr><td>25歩</td><td>22 -&gt; 33</td><td>33角</td></tr>
+<tr><td>96歩</td><td>93 -&gt; 94</td><td>94歩</td></tr>
+<tr><td>16歩</td><td>13 -&gt; 14</td><td>14歩</td></tr>
+</tbody></table>
+<h3 id="comfei-che-luo-ti-ding-ji-shou-shun">COM飛車落ち 定跡手順</h3>
+<table><thead><tr><th>指し手</th><th>想定手</th></tr></thead><tbody>
+<tr><td>33 -&gt; 34</td><td>34歩</td></tr>
+<tr><td>43 -&gt; 44</td><td>44歩</td></tr>
+<tr><td>41 -&gt; 32</td><td>32金</td></tr>
+<tr><td>31 -&gt; 42</td><td>42銀</td></tr>
+<tr><td>42 -&gt; 43</td><td>43銀</td></tr>
+<tr><td>51 -&gt; 62</td><td>62玉</td></tr>
+<tr><td>62 -&gt; 72</td><td>72玉</td></tr>
+<tr><td>71 -&gt; 62</td><td>62銀</td></tr>
+<tr><td>53 -&gt; 54</td><td>54歩</td></tr>
+<tr><td>13 -&gt; 14</td><td>14歩</td></tr>
+<tr><td>93 -&gt; 94</td><td>94歩</td></tr>
+<tr><td>63 -&gt; 64</td><td>64歩</td></tr>
+<tr><td>62 -&gt; 63</td><td>63銀</td></tr>
+<tr><td>61 -&gt; 62</td><td>62金</td></tr>
+<tr><td>73 -&gt; 74</td><td>74歩</td></tr>
+<tr><td>22 -&gt; 33</td><td>33角</td></tr>
+</tbody></table>
+<h2 id="comer-mei-luo-ti">COM二枚落ち</h2>
+<h3 id="comer-mei-luo-ti-ding-ji-fen-qi">COM二枚落ち 定跡分岐</h3>
+<table><thead><tr><th>プレイヤーの指し手</th><th>対応</th><th>想定手</th></tr></thead><tbody>
+<tr><td>16歩</td><td>13 -&gt; 14</td><td>14歩</td></tr>
+<tr><td>96歩</td><td>93 -&gt; 94</td><td>94歩</td></tr>
+<tr><td>56歩</td><td>53 -&gt; 54</td><td>54歩</td></tr>
+<tr><td>35歩</td><td>31 -&gt; 22</td><td>22銀</td></tr>
+</tbody></table>
+<h3 id="comer-mei-luo-ti-ding-ji-shou-shun">COM二枚落ち 定跡手順</h3>
+<table><thead><tr><th>指し手</th><th>想定手</th></tr></thead><tbody>
+<tr><td>41 -&gt; 32</td><td>32金</td></tr>
+<tr><td>71 -&gt; 62</td><td>62銀</td></tr>
+<tr><td>53 -&gt; 54</td><td>54歩</td></tr>
+<tr><td>62 -&gt; 53</td><td>53銀</td></tr>
+<tr><td>61 -&gt; 62</td><td>62金</td></tr>
+<tr><td>63 -&gt; 64</td><td>64歩</td></tr>
+<tr><td>62 -&gt; 63</td><td>63金</td></tr>
+<tr><td>73 -&gt; 74</td><td>74歩</td></tr>
+<tr><td>51 -&gt; 62</td><td>62玉</td></tr>
+<tr><td>13 -&gt; 14</td><td>14歩</td></tr>
+<tr><td>93 -&gt; 94</td><td>94歩</td></tr>
+<tr><td>81 -&gt; 73</td><td>73桂</td></tr>
+<tr><td>31 -&gt; 42</td><td>42銀</td></tr>
+<tr><td>64 -&gt; 65</td><td>65歩</td></tr>
+</tbody></table>
+
+
+
+</body>
+</html>

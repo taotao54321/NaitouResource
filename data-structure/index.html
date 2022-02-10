@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>本将棋 内藤九段将棋秘伝 (FC) 攻略&#x2F;解析 - データ構造</title>
+
+  <link rel="stylesheet" href="https://taotao54321.github.io/NaitouResource/main.css">
+</head>
+<body>
+
+
+<header>
+  <a href="https://taotao54321.github.io/NaitouResource/">本将棋 内藤九段将棋秘伝 (FC) 攻略&#x2F;解析</a>
+</header>
+
+<p>
+Published on: 2022-01-21
+
+</p>
+
+<h1>データ構造</h1>
+
+<h2 id="pan-mian">盤面</h2>
+<p>盤面は 9x9 マスの外周に壁を追加した 11x11 マス。レイアウトは以下の通り(マス内の数値はインデックス):</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>      ９  ８  ７  ６  ５  ４  ３  ２  １
+</span><span>+---+---+---+---+---+---+---+---+---+---+---+
+</span><span>|  0|  1|  2|  3|  4|  5|  6|  7|  8|  9| 10|
+</span><span>+---+---+---+---+---+---+---+---+---+---+---+
+</span><span>| 11| 12| 13| 14| 15| 16| 17| 18| 19| 20| 21| 一
+</span><span>+---+---+---+---+---+---+---+---+---+---+---+
+</span><span>| 22| 23| 24| 25| 26| 27| 28| 29| 30| 31| 32| 二
+</span><span>+---+---+---+---+---+---+---+---+---+---+---+
+</span><span>| 33| 34| 35| 36| 37| 38| 39| 40| 41| 42| 43| 三
+</span><span>+---+---+---+---+---+---+---+---+---+---+---+
+</span><span>| 44| 45| 46| 47| 48| 49| 50| 51| 52| 53| 54| 四
+</span><span>+---+---+---+---+---+---+---+---+---+---+---+
+</span><span>| 55| 56| 57| 58| 59| 60| 61| 62| 63| 64| 65| 五
+</span><span>+---+---+---+---+---+---+---+---+---+---+---+
+</span><span>| 66| 67| 68| 69| 70| 71| 72| 73| 74| 75| 76| 六
+</span><span>+---+---+---+---+---+---+---+---+---+---+---+
+</span><span>| 77| 78| 79| 80| 81| 82| 83| 84| 85| 86| 87| 七
+</span><span>+---+---+---+---+---+---+---+---+---+---+---+
+</span><span>| 88| 89| 90| 91| 92| 93| 94| 95| 96| 97| 98| 八
+</span><span>+---+---+---+---+---+---+---+---+---+---+---+
+</span><span>| 99|100|101|102|103|104|105|106|107|108|109| 九
+</span><span>+---+---+---+---+---+---+---+---+---+---+---+
+</span><span>|110|111|112|113|114|115|116|117|118|119|120|
+</span><span>+---+---+---+---+---+---+---+---+---+---+---+
+</span></code></pre>
+<p>マスの列挙は原則として昇順に行われる。</p>
+<p>マス 99 は無効値として使われることがある。</p>
+<p>マスはインデックスでなく x, y 座標で表されることもある。<br />
+その場合、<code>x = index % 11, y = index / 11</code> となる。たとえば７四のマスは <code>(x,y) = (3,4)</code> となる。</p>
+<p>盤面はプレイヤー、COMそれぞれについて別個に管理している。盤面上の値の意味は以下の通り:</p>
+<table><thead><tr><th>値</th><th>意味</th></tr></thead><tbody>
+<tr><td>0</td><td>空白</td></tr>
+<tr><td>1</td><td>プレイヤー 玉</td></tr>
+<tr><td>2</td><td>プレイヤー 飛</td></tr>
+<tr><td>3</td><td>プレイヤー 角</td></tr>
+<tr><td>4</td><td>プレイヤー 金</td></tr>
+<tr><td>5</td><td>プレイヤー 銀</td></tr>
+<tr><td>6</td><td>プレイヤー 桂</td></tr>
+<tr><td>7</td><td>プレイヤー 香</td></tr>
+<tr><td>8</td><td>プレイヤー 歩</td></tr>
+<tr><td>9</td><td>プレイヤー 龍</td></tr>
+<tr><td>10</td><td>プレイヤー 馬</td></tr>
+<tr><td>12</td><td>プレイヤー 成銀</td></tr>
+<tr><td>13</td><td>プレイヤー 成桂</td></tr>
+<tr><td>14</td><td>プレイヤー 成香</td></tr>
+<tr><td>15</td><td>プレイヤー と金</td></tr>
+<tr><td>16</td><td>COM 玉</td></tr>
+<tr><td>17</td><td>COM 飛</td></tr>
+<tr><td>18</td><td>COM 角</td></tr>
+<tr><td>19</td><td>COM 金</td></tr>
+<tr><td>20</td><td>COM 銀</td></tr>
+<tr><td>21</td><td>COM 桂</td></tr>
+<tr><td>22</td><td>COM 香</td></tr>
+<tr><td>23</td><td>COM 歩</td></tr>
+<tr><td>24</td><td>COM 龍</td></tr>
+<tr><td>25</td><td>COM 馬</td></tr>
+<tr><td>27</td><td>COM 成銀</td></tr>
+<tr><td>28</td><td>COM 成桂</td></tr>
+<tr><td>29</td><td>COM 成香</td></tr>
+<tr><td>30</td><td>COM と金</td></tr>
+<tr><td>99</td><td>無効値 (壁)</td></tr>
+</tbody></table>
+<h2 id="shou-ju">手駒</h2>
+<p>長さ 7 の配列。インデックスと駒種の対応は以下の通り:</p>
+<table><thead><tr><th>値</th><th>駒種</th></tr></thead><tbody>
+<tr><td>0</td><td>飛</td></tr>
+<tr><td>1</td><td>角</td></tr>
+<tr><td>2</td><td>金</td></tr>
+<tr><td>3</td><td>銀</td></tr>
+<tr><td>4</td><td>桂</td></tr>
+<tr><td>5</td><td>香</td></tr>
+<tr><td>6</td><td>歩</td></tr>
+</tbody></table>
+<h2 id="zhi-sishou">指し手</h2>
+<p>駒打ちの指し手は移動元として特殊な値を使うことで表現する:</p>
+<table><thead><tr><th>値</th><th>意味</th></tr></thead><tbody>
+<tr><td>201</td><td>COMが歩を打つ手</td></tr>
+<tr><td>202</td><td>COMが香を打つ手</td></tr>
+<tr><td>203</td><td>COMが桂を打つ手</td></tr>
+<tr><td>204</td><td>COMが銀を打つ手</td></tr>
+<tr><td>205</td><td>COMが金を打つ手</td></tr>
+<tr><td>206</td><td>COMが角を打つ手</td></tr>
+<tr><td>207</td><td>COMが飛を打つ手</td></tr>
+<tr><td>213</td><td>プレイヤーが飛を打つ手</td></tr>
+<tr><td>214</td><td>プレイヤーが角を打つ手</td></tr>
+<tr><td>215</td><td>プレイヤーが金を打つ手</td></tr>
+<tr><td>216</td><td>プレイヤーが銀を打つ手</td></tr>
+<tr><td>217</td><td>プレイヤーが桂を打つ手</td></tr>
+<tr><td>218</td><td>プレイヤーが香を打つ手</td></tr>
+<tr><td>219</td><td>プレイヤーが歩を打つ手</td></tr>
+</tbody></table>
+
+
+
+</body>
+</html>

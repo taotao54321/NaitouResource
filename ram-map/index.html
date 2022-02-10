@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>本将棋 内藤九段将棋秘伝 (FC) 攻略&#x2F;解析 - RAM マップ</title>
+
+  <link rel="stylesheet" href="https://taotao54321.github.io/NaitouResource/main.css">
+</head>
+<body>
+
+
+<header>
+  <a href="https://taotao54321.github.io/NaitouResource/">本将棋 内藤九段将棋秘伝 (FC) 攻略&#x2F;解析</a>
+</header>
+
+<p>
+Published on: 2022-01-21
+
+</p>
+
+<h1>RAM マップ</h1>
+
+<h2 id="gai-yao">概要</h2>
+<table><thead><tr><th>アドレス</th><th>型</th><th>内容</th></tr></thead><tbody>
+<tr><td><code>$00-$06</code></td><td></td><td>雑用</td></tr>
+<tr><td><code>$07</code></td><td><code>u8[11]</code></td><td>盤面の各筋に COM の歩があるかどうか (0:false, 0xFF:true)</td></tr>
+<tr><td><code>$12</code></td><td><code>u8</code></td><td>雑用 (候補手生成時の座標x管理用)</td></tr>
+<tr><td><code>$13-$14</code></td><td></td><td>(未使用)</td></tr>
+<tr><td><code>$15</code></td><td><code>u8</code></td><td>表示用手数 一、十の位 (<code>0..=99</code>)</td></tr>
+<tr><td><code>$16</code></td><td><code>u8</code></td><td>表示用手数 百の位 (10 以上になると表示が化ける)</td></tr>
+<tr><td><code>$17-$1E</code></td><td></td><td>雑用</td></tr>
+<tr><td><code>$1F-$21</code></td><td><code>u8[3]</code></td><td>プレイヤー玉周辺の 3 つの筋にプレイヤーの歩があるかどうか (0:false, 0xFF:true)</td></tr>
+<tr><td><code>$22-$29</code></td><td></td><td>(未使用)</td></tr>
+<tr><td><code>$2A-$2B</code></td><td></td><td>雑用</td></tr>
+<tr><td><code>$2C-$3B</code></td><td><code>u8[16]</code></td><td>定跡分岐 i 個目を処理したときの手数を記録するバッファ</td></tr>
+<tr><td><code>$3C-$53</code></td><td><code>u8[24]</code></td><td>定跡手順 i 個目を処理したときの手数を記録するバッファ</td></tr>
+<tr><td><code>$54</code></td><td><code>ptr</code></td><td>現在の戦型に対応する定跡分岐データへのポインタ</td></tr>
+<tr><td><code>$56</code></td><td><code>ptr</code></td><td>現在の戦型に対応する定跡手順データへのポインタ</td></tr>
+<tr><td><code>$58-$5B</code></td><td></td><td>雑用</td></tr>
+<tr><td><code>$5C</code></td><td></td><td>(未使用)</td></tr>
+<tr><td><code>$5D-$5E</code></td><td></td><td>雑用</td></tr>
+<tr><td><code>$5F</code></td><td><code>u8</code></td><td>候補手の移動元の駒 (駒打ちの場合は打つ駒)</td></tr>
+<tr><td><code>$60-$67</code></td><td></td><td>雑用</td></tr>
+<tr><td><code>$68</code></td><td><code>u8</code></td><td>駒損マスの評価における取り返しフラグ (0:false, 1:true)</td></tr>
+<tr><td><code>$69-$6F</code></td><td></td><td>(未使用)</td></tr>
+<tr><td><code>$70-$71</code></td><td></td><td>雑用</td></tr>
+<tr><td><code>$72</code></td><td></td><td>(未使用)</td></tr>
+<tr><td><code>$73</code></td><td><code>u8</code></td><td>時間制限 (0:なし, 1:あり(秒読み突入前), 2:あり(秒読み突入後))</td></tr>
+<tr><td><code>$74</code></td><td><code>u8</code></td><td>持ち時間管理用フレームカウンタ (60 に達すると 1 秒減る)</td></tr>
+<tr><td><code>$75</code></td><td><code>u8</code></td><td>持ち時間 分</td></tr>
+<tr><td><code>$76</code></td><td><code>u8</code></td><td>持ち時間 秒</td></tr>
+<tr><td><code>$77</code></td><td><code>u8</code></td><td>プレイヤーの手番かどうか (0:false, 1:true)</td></tr>
+<tr><td><code>$78</code></td><td><code>u8</code></td><td>NMI ハンドラに対する持ち時間描画要求フラグ (0:false, 1:true)</td></tr>
+<tr><td><code>$79-$7C</code></td><td></td><td>雑用</td></tr>
+<tr><td><code>$7D-$7E</code></td><td></td><td>(未使用)</td></tr>
+<tr><td><code>$7F</code></td><td></td><td>未使用だが、<a href="https://taotao54321.github.io/NaitouResource/bug/#stack-pointer">スタックポインタ設定バグ</a>で参照される</td></tr>
+<tr><td><code>$80</code></td><td><code>u8</code></td><td>デモ中かどうか (0:false, 1:true)</td></tr>
+<tr><td><code>$81</code></td><td><code>u8</code></td><td>タイマーB(フレーム単位)の上位 Byte</td></tr>
+<tr><td><code>$82</code></td><td><code>ptr</code></td><td>デモ入力へのポインタ</td></tr>
+<tr><td><code>$84</code></td><td><code>u8</code></td><td>待ったのために B を押した回数</td></tr>
+<tr><td><code>$85</code></td><td><code>u8</code></td><td>待った不可フラグ (0:false, 1:true)</td></tr>
+<tr><td><code>$86</code></td><td><code>u8</code></td><td>タイマーA(フレーム単位)</td></tr>
+<tr><td><code>$87</code></td><td></td><td>雑用</td></tr>
+<tr><td><code>$88-$8F</code></td><td></td><td>(未使用)</td></tr>
+<tr><td><code>$90</code></td><td><code>u8</code></td><td>APU <code>$4015</code> 設定用</td></tr>
+<tr><td><code>$91-$94</code></td><td></td><td>雑用 (サウンド関連)</td></tr>
+<tr><td><code>$95</code></td><td><code>ptr</code></td><td>矩形波1サウンドデータへのポインタ</td></tr>
+<tr><td><code>$97</code></td><td><code>ptr</code></td><td>三角波サウンドデータへのポインタ</td></tr>
+<tr><td><code>$99</code></td><td><code>u16le</code></td><td>サウンド周波数タイマー値</td></tr>
+<tr><td><code>$9B</code></td><td><code>u8</code></td><td>APU <code>$4000</code> 設定用</td></tr>
+<tr><td><code>$9C</code></td><td><code>u8</code></td><td>APU <code>$4001</code> 設定用</td></tr>
+<tr><td><code>$9D</code></td><td><code>u8</code></td><td>APU <code>$4002</code> 設定用</td></tr>
+<tr><td><code>$9E</code></td><td><code>u8</code></td><td>APU <code>$4003</code> 設定用</td></tr>
+<tr><td><code>$9F-$A0</code></td><td></td><td>(未使用)</td></tr>
+<tr><td><code>$A1</code></td><td><code>u8</code></td><td>APU <code>$400A</code> 設定用</td></tr>
+<tr><td><code>$A2</code></td><td><code>u8</code></td><td>APU <code>$400B</code> 設定用</td></tr>
+<tr><td><code>$A3</code></td><td><code>u8</code></td><td>矩形波1 オクターブ数</td></tr>
+<tr><td><code>$A4</code></td><td><code>u8</code></td><td>三角波 オクターブ数</td></tr>
+<tr><td><code>$A5</code></td><td><code>u8</code></td><td>サウンド length counter index の最上位 bit (<code>0..=1</code>)</td></tr>
+<tr><td><code>$A6</code></td><td><code>u8</code></td><td>サウンドデータから読み取った Byte</td></tr>
+<tr><td><code>$A7-$A9</code></td><td></td><td>雑用 (サウンド関連)</td></tr>
+<tr><td><code>$AA-$BC</code></td><td></td><td>(未使用)</td></tr>
+<tr><td><code>$BD-$BF</code></td><td></td><td>雑用</td></tr>
+<tr><td><code>$C0-$CF</code></td><td></td><td>(未使用)</td></tr>
+<tr><td><code>$D0-$D3</code></td><td></td><td>雑用</td></tr>
+<tr><td><code>$D4-$D5</code></td><td></td><td>(未使用)</td></tr>
+<tr><td><code>$D6</code></td><td><code>u8</code></td><td>カーソル座標x</td></tr>
+<tr><td><code>$D7</code></td><td><code>u8</code></td><td>カーソル座標y</td></tr>
+<tr><td><code>$D8-$D9</code></td><td></td><td>雑用</td></tr>
+<tr><td><code>$DA</code></td><td><code>u8</code></td><td>ゲームへの入力 (ABSTUDLR)</td></tr>
+<tr><td><code>$DB</code></td><td><code>u8</code></td><td>生のコントローラー入力 (ABSTUDLR)</td></tr>
+<tr><td><code>$DC-$DE</code></td><td></td><td>雑用</td></tr>
+<tr><td><code>$DF</code></td><td><code>u8</code></td><td>プレイヤーが駒を掴んでいるかどうか (0:false, 1:true)</td></tr>
+<tr><td><code>$E0-$E3</code></td><td></td><td>雑用</td></tr>
+<tr><td><code>$E4-$E6</code></td><td></td><td>(未使用)</td></tr>
+<tr><td><code>$E7-$EC</code></td><td></td><td>雑用</td></tr>
+<tr><td><code>$ED</code></td><td><code>u8</code></td><td>タイマーB(フレーム単位)の下位 Byte</td></tr>
+<tr><td><code>$EE-$EF</code></td><td></td><td>雑用</td></tr>
+<tr><td><code>$F0</code></td><td><code>u8</code></td><td>PPU <code>$2000</code> 設定用</td></tr>
+<tr><td><code>$F1</code></td><td><code>u8</code></td><td>PPU <code>$2001</code> 設定用</td></tr>
+<tr><td><code>$F2</code></td><td><code>u8</code></td><td>PPU スクロールx (<code>$2005</code>) 設定用</td></tr>
+<tr><td><code>$F3</code></td><td><code>u8</code></td><td>PPU スクロールy (<code>$2005</code>) 設定用</td></tr>
+<tr><td><code>$F4-$F9</code></td><td></td><td>(未使用)</td></tr>
+<tr><td><code>$FA-$FD</code></td><td></td><td>雑用</td></tr>
+<tr><td><code>$FE</code></td><td><code>u8</code></td><td><a href="https://taotao54321.github.io/NaitouResource/ram-map/#handicap">手合割</a></td></tr>
+<tr><td><code>$FF</code></td><td><code>u8</code></td><td>NMI タスクID (<code>0..=4</code>)</td></tr>
+<tr><td><code>$0100-$017F</code></td><td></td><td>スタック領域</td></tr>
+<tr><td><code>$0180-$01F8</code></td><td><code>u8[121]</code></td><td>プレイヤー側の各マスに対する attacker (存在しない場合 99)</td></tr>
+<tr><td><code>$01F9-$0271</code></td><td><code>u8[121]</code></td><td>COM側の各マスに対する attacker (存在しない場合 99)</td></tr>
+<tr><td><code>$0272</code></td><td><code>u8</code></td><td>候補手の最大駒得価値 (駒得マスがない場合 0)</td></tr>
+<tr><td><code>$0273</code></td><td><code>u8</code></td><td>候補手の最大駒得マス (駒得マスがない場合 99)</td></tr>
+<tr><td><code>$0274</code></td><td><code>u8</code></td><td>候補手の最大駒損価値 (駒損マスがない場合 0)</td></tr>
+<tr><td><code>$0275</code></td><td><code>u8</code></td><td>候補手の最大駒損マス (駒損マスがない場合 99)</td></tr>
+<tr><td><code>$0276</code></td><td><code>u8</code></td><td>候補手の移動先</td></tr>
+<tr><td><code>$0277</code></td><td><code>u8</code></td><td>候補手の移動元</td></tr>
+<tr><td><code>$0278</code></td><td><code>u8</code></td><td>候補手で捕獲する駒の価値</td></tr>
+<tr><td><code>$0279</code></td><td><code>u8</code></td><td>候補手が成りかどうか (0:false, 1:true)</td></tr>
+<tr><td><code>$027A</code></td><td><code>u8</code></td><td><em>ルート局面での</em> プレイヤー玉位置</td></tr>
+<tr><td><code>$027B</code></td><td><code>u8</code></td><td><em>ルート局面での</em> COM玉位置</td></tr>
+<tr><td><code>$027C</code></td><td><code>u8</code></td><td>候補手が駒捨てかどうか (0:false, 1:true)</td></tr>
+<tr><td><code>$027D</code></td><td><code>u8</code></td><td><em>ルート局面での</em> プレイヤー玉座標y</td></tr>
+<tr><td><code>$027E</code></td><td><code>u8</code></td><td><em>ルート局面での</em> プレイヤー玉座標x</td></tr>
+<tr><td><code>$027F</code></td><td></td><td>雑用</td></tr>
+<tr><td><code>$0280</code></td><td><code>u8</code></td><td>ルート局面の最大駒得価値 (駒得マスがない場合 0)</td></tr>
+<tr><td><code>$0281</code></td><td></td><td>(未使用)</td></tr>
+<tr><td><code>$0282</code></td><td><code>u8</code></td><td>ルート局面の最大駒損価値</td></tr>
+<tr><td><code>$0283</code></td><td></td><td>(未使用)</td></tr>
+<tr><td><code>$0284</code></td><td><code>u8</code></td><td>現在の最善手の移動先 (思考開始時に初期化されない)</td></tr>
+<tr><td><code>$0285</code></td><td><code>u8</code></td><td>現在の最善手の移動元 (思考開始時に初期化されない)</td></tr>
+<tr><td><code>$0286</code></td><td><code>u8</code></td><td>現在の最善手の最大駒得価値 (思考開始時の初期値 0)</td></tr>
+<tr><td><code>$0287</code></td><td><code>u8</code></td><td>現在の最善手の最大駒得マス (思考開始時の初期値 99)</td></tr>
+<tr><td><code>$0288</code></td><td><code>u8</code></td><td>現在の最善手の最大駒損価値 (思考開始時の初期値 99)</td></tr>
+<tr><td><code>$0289</code></td><td><code>u8</code></td><td>現在の最善手の最大駒損マス (思考開始時の初期値 99)</td></tr>
+<tr><td><code>$028A</code></td><td><code>u8</code></td><td>現在の最善手の捕獲する駒の価値 (思考開始時の初期値 0)</td></tr>
+<tr><td><code>$028B</code></td><td></td><td>(未使用)</td></tr>
+<tr><td><code>$028C</code></td><td><code>u8</code></td><td>現在の最善手が成りかどうか (0:false, 1:true) (思考開始時の初期値 0)</td></tr>
+<tr><td><code>$028D</code></td><td></td><td>(未使用。常に 0)</td></tr>
+<tr><td><code>$028E</code></td><td><code>u8</code></td><td>進行度 (<code>0..=3</code>)</td></tr>
+<tr><td><code>$028F-$0292</code></td><td></td><td>(未使用)</td></tr>
+<tr><td><code>$0293</code></td><td><code>u8</code></td><td>候補手を指した局面におけるCOM側の成駒の個数</td></tr>
+<tr><td><code>$0294</code></td><td><code>u8</code></td><td>候補手の移動先から <em>ルート局面での</em> プレイヤー玉位置への距離</td></tr>
+<tr><td><code>$0295</code></td><td><code>u8</code></td><td>候補手を指した局面における、<em>ルート局面での</em> COM玉位置から距離 2 以内へのCOM利きの総和</td></tr>
+<tr><td><code>$0296</code></td><td><code>u8</code></td><td>候補手を指した局面における、<em>ルート局面での</em> COM玉位置から距離 2 以内へのプレイヤー利きの総和</td></tr>
+<tr><td><code>$0297</code></td><td><code>u8</code></td><td>候補手を指した局面におけるCOM側の離れ駒の個数</td></tr>
+<tr><td><code>$0298</code></td><td><code>u8</code></td><td>候補手の移動元(駒打ちの場合は移動先)から <em>ルート局面での</em> COM玉位置への距離</td></tr>
+<tr><td><code>$0299</code></td><td><code>u8</code></td><td>候補手を指した局面における、<em>ルート局面での</em> プレイヤー玉位置から距離 2 以内へのCOM利きの総和</td></tr>
+<tr><td><code>$029A</code></td><td><code>u8</code></td><td>現在の最善手を指した局面におけるCOM側の成駒の個数 (思考開始時の初期値 0)</td></tr>
+<tr><td><code>$029B</code></td><td><code>u8</code></td><td>現在の最善手の移動先から <em>ルート局面での</em> プレイヤー玉位置への距離 (思考開始時の初期値 99)</td></tr>
+<tr><td><code>$029C</code></td><td><code>u8</code></td><td>現在の最善手を指した局面における、<em>ルート局面での</em> COM玉位置から距離 2 以内へのCOM利きの総和 (思考開始時の初期値 0)</td></tr>
+<tr><td><code>$029D</code></td><td><code>u8</code></td><td>現在の最善手を指した局面における、<em>ルート局面での</em> COM玉位置から距離 2 以内へのプレイヤー利きの総和 (思考開始時の初期値 99)</td></tr>
+<tr><td><code>$029E</code></td><td><code>u8</code></td><td>現在の最善手を指した局面におけるCOM側の離れ駒の個数 (思考開始時の初期値 99)</td></tr>
+<tr><td><code>$029F</code></td><td><code>u8</code></td><td>現在の最善手の移動元(駒打ちの場合は移動先)から <em>ルート局面での</em> COM玉位置への距離 (思考開始時の初期値 0)</td></tr>
+<tr><td><code>$02A0</code></td><td><code>u8</code></td><td>現在の最善手を指した局面における、<em>ルート局面での</em> プレイヤー玉位置から距離 2 以内へのCOM利きの総和 (思考開始時の初期値 0)</td></tr>
+<tr><td><code>$02A1</code></td><td></td><td>雑用</td></tr>
+<tr><td><code>$02A2</code></td><td><code>u8</code></td><td><em>ルート局面での</em> COM玉座標y</td></tr>
+<tr><td><code>$02A3</code></td><td><code>u8</code></td><td><em>ルート局面での</em> COM玉座標x</td></tr>
+<tr><td><code>$02A4</code></td><td><code>u8</code></td><td>候補手を指した局面における総駒得価値</td></tr>
+<tr><td><code>$02A5</code></td><td></td><td>(未使用。ルート局面の総駒得価値)</td></tr>
+<tr><td><code>$02A6</code></td><td><code>u8</code></td><td>最善手を指した局面における総駒得価値 (思考開始時の初期値 0)</td></tr>
+<tr><td><code>$02A7-$02A8</code></td><td></td><td>雑用</td></tr>
+<tr><td><code>$02A9-$0321</code></td><td><code>u8[121]</code></td><td>盤面A プレイヤー側</td></tr>
+<tr><td><code>$0322-$039A</code></td><td><code>u8[121]</code></td><td>盤面A COM側</td></tr>
+<tr><td><code>$039B-$03A1</code></td><td><code>u8[7]</code></td><td>手駒A プレイヤー側</td></tr>
+<tr><td><code>$03A2-$03A8</code></td><td><code>u8[7]</code></td><td>手駒A COM側</td></tr>
+<tr><td><code>$03A9-$0421</code></td><td><code>u8[121]</code></td><td>盤面B プレイヤー側</td></tr>
+<tr><td><code>$0422-$049A</code></td><td><code>u8[121]</code></td><td>各マスの利き数 プレイヤー側</td></tr>
+<tr><td><code>$049B-$0513</code></td><td><code>u8[121]</code></td><td>盤面B COM側</td></tr>
+<tr><td><code>$0514-$058C</code></td><td><code>u8[121]</code></td><td>各マスの利き数 COM側</td></tr>
+<tr><td><code>$058D-$0593</code></td><td><code>u8[7]</code></td><td>手駒B プレイヤー側</td></tr>
+<tr><td><code>$0594-$059A</code></td><td><code>u8[7]</code></td><td>手駒B COM側</td></tr>
+<tr><td><code>$059B</code></td><td><code>u8</code></td><td>プレイヤーの指し手の移動先座標x</td></tr>
+<tr><td><code>$059C</code></td><td><code>u8</code></td><td>プレイヤーの指し手の移動元座標x</td></tr>
+<tr><td><code>$059D</code></td><td><code>u8</code></td><td>プレイヤーの指し手の座標x差分</td></tr>
+<tr><td><code>$059E</code></td><td><code>u8</code></td><td>プレイヤーの指し手の移動先座標y</td></tr>
+<tr><td><code>$059F</code></td><td><code>u8</code></td><td>プレイヤーの指し手の移動元座標y</td></tr>
+<tr><td><code>$05A0</code></td><td><code>u8</code></td><td>プレイヤーの指し手の座標y差分</td></tr>
+<tr><td><code>$05A1</code></td><td><code>u8</code></td><td>プレイヤーの指し手の移動先</td></tr>
+<tr><td><code>$05A2</code></td><td><code>u8</code></td><td>プレイヤーの指し手の移動元</td></tr>
+<tr><td><code>$05A3</code></td><td></td><td>(未使用。write-only)</td></tr>
+<tr><td><code>$05A4-$05B3</code></td><td></td><td>雑用 (近接駒の利きデータがロードされる)</td></tr>
+<tr><td><code>$05B4</code></td><td><code>u8</code></td><td>指し手が違法であるか、または却下されたことを表すフラグ (0:false, 1:true)</td></tr>
+<tr><td><code>$05B5</code></td><td><code>u8</code></td><td>COMの指し手の移動先座標x</td></tr>
+<tr><td><code>$05B6</code></td><td><code>u8</code></td><td>COMの指し手の移動元座標x</td></tr>
+<tr><td><code>$05B7</code></td><td><code>u8</code></td><td>COMの指し手の座標x差分</td></tr>
+<tr><td><code>$05B8</code></td><td><code>u8</code></td><td>COMの指し手の移動先座標y</td></tr>
+<tr><td><code>$05B9</code></td><td><code>u8</code></td><td>COMの指し手の移動元座標y</td></tr>
+<tr><td><code>$05BA</code></td><td><code>u8</code></td><td>COMの指し手の座標y差分</td></tr>
+<tr><td><code>$05BB</code></td><td><code>u8</code></td><td>COMの指し手の移動先</td></tr>
+<tr><td><code>$05BC</code></td><td><code>u8</code></td><td>COMの指し手の移動元</td></tr>
+<tr><td><code>$05BD</code></td><td><code>u8</code></td><td><a href="https://taotao54321.github.io/NaitouResource/ram-map/#handicap">手合割</a> コピー</td></tr>
+<tr><td><code>$05BE</code></td><td><code>u8</code></td><td><a href="https://taotao54321.github.io/NaitouResource/ram-map/#formation">戦型</a></td></tr>
+<tr><td><code>$05BF</code></td><td><code>u8</code></td><td>プレイヤーの指し手が成りかどうか (0:false, 1:true)</td></tr>
+<tr><td><code>$05C0</code></td><td><code>u8</code></td><td>COMの指し手が成りかどうか (0:false, 1:true)</td></tr>
+<tr><td><code>$05C1</code></td><td><code>u8</code></td><td>進行度管理用手数 (0 始まり。上限 100)</td></tr>
+<tr><td><code>$05C2-$05C7</code></td><td></td><td>雑用</td></tr>
+<tr><td><code>$05C8</code></td><td><code>u8</code></td><td>サブ進行度 (<code>0..=5</code>)</td></tr>
+<tr><td><code>$05C9-$05D9</code></td><td></td><td>雑用</td></tr>
+<tr><td><code>$05DA</code></td><td></td><td>(未使用。write-only)</td></tr>
+<tr><td><code>$05DB</code></td><td></td><td>(未使用)</td></tr>
+<tr><td><code>$05DC</code></td><td><code>u8</code></td><td>プレイヤー玉の詰み判定における不詰フラグ (0:false, 1:true)</td></tr>
+<tr><td><code>$05DD</code></td><td><code>u8</code></td><td>プレイヤー玉の詰みフラグ (0:false, 1:true)</td></tr>
+<tr><td><code>$05DE</code></td><td></td><td>(未使用。プレイヤー側の駒捨てに関係するが、実際は思考結果に影響しない)</td></tr>
+<tr><td><code>$05DF</code></td><td><code>u8</code></td><td>候補手を指した局面におけるプレイヤー側の垂れ歩/垂れ香存在フラグ (0:false, 1:true)</td></tr>
+<tr><td><code>$05E0</code></td><td><code>u8</code></td><td>候補手を指した局面における総駒損価値</td></tr>
+<tr><td><code>$05E1</code></td><td></td><td>(未使用。ルート局面の総駒損価値)</td></tr>
+<tr><td><code>$05E2</code></td><td><code>u8</code></td><td>現在の最善手を指した局面における総駒損価値 (思考開始時の初期値 99)</td></tr>
+<tr><td><code>$05E3</code></td><td></td><td>(未使用。候補手が大駒の成りかどうかのフラグ)</td></tr>
+<tr><td><code>$05E4</code></td><td><code>u8</code></td><td>ルート局面のCOM側 power (<code>8*(持飛+持角+成駒) + 4*(持金+持銀) + 2*(持桂+持香) + 1*(持歩) + (手数補正)</code>)</td></tr>
+<tr><td><code>$05E5</code></td><td><code>u8</code></td><td>候補手を指した局面における、<em>ルート局面での</em> COM玉位置からちょうど距離 1 で、<code>(プレイヤー利き) &gt;= (COM利き)</code> なるマスの個数</td></tr>
+<tr><td><code>$05E6</code></td><td></td><td>(未使用。最善手を指した局面における、<em>ルート局面での</em> COM玉位置からちょうど距離 1 で、<code>(プレイヤー利き) &gt;= (COM利き)</code> なるマスの個数)</td></tr>
+<tr><td><code>$05E7</code></td><td><code>u8</code></td><td>ルート局面のプレイヤー側 power (<code>8*(持飛+持角+成駒) + 4*(持金+持銀) + 2*(持桂+持香) + 1*(持歩) + (手数補正)</code>)</td></tr>
+<tr><td><code>$05E8</code></td><td><code>u8</code></td><td>候補手を指した局面におけるプレイヤー側の成駒の個数</td></tr>
+<tr><td><code>$05E9</code></td><td></td><td>(未使用。最善手を指した局面におけるプレイヤー側の成駒の個数)</td></tr>
+<tr><td><code>$05EA</code></td><td><code>u8</code></td><td>ルート局面のCOM側の <code>持飛+持角+成駒</code></td></tr>
+<tr><td><code>$05EB</code></td><td><code>u8</code></td><td>候補手を指した局面における、<em>ルート局面での</em> COM玉位置からちょうど距離 1 へのプレイヤー利きの総和</td></tr>
+<tr><td><code>$05EC-$05FF</code></td><td></td><td>(未使用)</td></tr>
+<tr><td><code>$0600-$061F</code></td><td><code>u8[32]</code></td><td>パレット</td></tr>
+<tr><td><code>$0620-$06FF</code></td><td></td><td>動的なBGデータ用バッファ</td></tr>
+<tr><td><code>$0700-$07FF</code></td><td><code>Sprite[64]</code></td><td>スプライトバッファ</td></tr>
+</tbody></table>
+<h2 id="handicap">手合割</h2>
+<table><thead><tr><th>値</th><th>内容</th></tr></thead><tbody>
+<tr><td>1</td><td>プレイヤー先手</td></tr>
+<tr><td>2</td><td>プレイヤー飛車落ち</td></tr>
+<tr><td>3</td><td>プレイヤー二枚落ち</td></tr>
+<tr><td>4</td><td>COM先手</td></tr>
+<tr><td>5</td><td>COM飛車落ち</td></tr>
+<tr><td>6</td><td>COM二枚落ち</td></tr>
+</tbody></table>
+<h2 id="formation">戦型</h2>
+<table><thead><tr><th>値</th><th>内容</th></tr></thead><tbody>
+<tr><td>0</td><td>中飛車</td></tr>
+<tr><td>1</td><td>四間飛車</td></tr>
+<tr><td>2</td><td>(無効値)</td></tr>
+<tr><td>3</td><td>角換わり</td></tr>
+<tr><td>4</td><td>筋違い角</td></tr>
+<tr><td>5</td><td>(無効値)</td></tr>
+<tr><td>6</td><td>プレイヤー飛車落ち</td></tr>
+<tr><td>7</td><td>プレイヤー二枚落ち</td></tr>
+<tr><td>8</td><td>COM飛車落ち</td></tr>
+<tr><td>9</td><td>COM二枚落ち</td></tr>
+<tr><td>99</td><td>なし (定跡を抜けた後)</td></tr>
+</tbody></table>
+
+
+
+</body>
+</html>

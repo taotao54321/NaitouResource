@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>本将棋 内藤九段将棋秘伝 (FC) 攻略&#x2F;解析 - 駒の損得評価</title>
+
+  <link rel="stylesheet" href="https://taotao54321.github.io/NaitouResource/main.css">
+</head>
+<body>
+
+
+<header>
+  <a href="https://taotao54321.github.io/NaitouResource/">本将棋 内藤九段将棋秘伝 (FC) 攻略&#x2F;解析</a>
+</header>
+
+<p>
+Published on: 2022-01-21
+
+</p>
+
+<h1>駒の損得評価</h1>
+
+<p>局面評価は主に駒の損得に基づいて行われる。</p>
+<p>駒の損得は、盤面の各マスについて駒得/駒損が発生するかどうかを調べることで評価される。<br />
+駒得が発生するマスを「駒得マス」、駒損が発生するマスを「駒損マス」と呼ぶ(COM側の立場で命名している)。</p>
+<p>全ての駒得マスの上にあるプレイヤー駒について、その価値の最大値を「最大駒得価値」、価値の総和を「総駒得価値」と呼ぶ。<br />
+最大駒得価値を持つ駒得マス(複数ある場合はマスの値が最小のもの)を「最大駒得マス」と呼ぶ。</p>
+<p>全ての駒損マスの上にあるCOM駒について、その価値の最大値を「最大駒損価値」、価値の総和を「総駒損価値」と呼ぶ。<br />
+最大駒損価値を持つ駒損マス(複数ある場合はマスの値が最小のもの)を「最大駒損マス」と呼ぶ。</p>
+<h2 id="advantage">駒得マス</h2>
+<p>プレイヤー駒のあるマスのうち、以下のいずれかの条件を満たすものが駒得マスとなる:</p>
+<ul>
+<li>COM利きがあり、プレイヤー利きがない</li>
+<li>両者の利きがあり、<code>(COM attacker の価値) &lt; (プレイヤー駒の価値)</code> である</li>
+<li>両者の利きがあり、<code>(COM attacker の価値) == (プレイヤー駒の価値)</code> で、かつ進行度が 0 でない</li>
+</ul>
+<p>ここで、駒価値の算定には <a href="https://taotao54321.github.io/NaitouResource/price-table/#table-b">駒価値テーブルB</a> が使われる。</p>
+<p>なお、進行度が 0 の場合、プレイヤー駒が玉であっても、COM attacker も玉ならばそのマスは駒得マスとみなされない。これは <a href="https://taotao54321.github.io/NaitouResource/bug/#check-with-king">玉で王手できるバグ</a> の原因となっている。</p>
+<h2 id="disadvantage">駒損マス</h2>
+<p>COM駒のあるマスのうち、以下のいずれかの条件を満たすものが駒損マスとなる:</p>
+<ul>
+<li>プレイヤー利きがあり、COM駒が玉である(王手)</li>
+<li>プレイヤー利きがあり、COM利きがない</li>
+<li>両者の利きがあり、<code>(COM利き数) &lt; (プレイヤー利き数)</code> かつ <code>(COM駒の価値) + (COM attacker の価値) &gt;= (プレイヤー attacker の価値)</code> である</li>
+<li>両者の利きがあり、<code>(COM利き数) &gt;= (プレイヤー利き数)</code> かつ <code>(COM駒の価値) &gt; (プレイヤー attacker の価値)</code> である</li>
+</ul>
+<p>ここで、駒価値の算定には <a href="https://taotao54321.github.io/NaitouResource/price-table/#table-c">駒価値テーブルC</a> および <a href="https://taotao54321.github.io/NaitouResource/price-table/#table-d">駒価値テーブルD</a> が使われる。</p>
+<p>また、最後の条件を満たして駒損マス判定された場合、「取り返しフラグ」が立つ。これは「利きが同数以上なので取り返しが利く」といった意味。<br />
+いったん取り返しフラグが立つと、そのマスを含め、駒損マスが現れるたびに最大駒損価値および総駒損価値が 1 減らされる。これを「取り返しフラグ補正」と呼ぶ。<br />
+取り返しフラグ補正は王手をかけられている場合も発生する。これは <a href="https://taotao54321.github.io/NaitouResource/bug/#resign">投了バグ</a>, <a href="https://taotao54321.github.io/NaitouResource/bug/#capture-com-king">COM玉が取れるバグ</a>, <a href="https://taotao54321.github.io/NaitouResource/bug/#com-suicide-mate">COMが王手放置して詰ましてくるバグ</a> の原因となっている。</p>
+
+
+
+</body>
+</html>
